@@ -7,8 +7,18 @@ header {
     color: #5B6AC2;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
+.cabecalho{
+    position: relative;
+    z-index: 10;
+}
+
 .navegacao {
     display: flex;
+    font-size: 22px;
     justify-content: space-around;
     width: 700px;
     list-style: none;
@@ -19,9 +29,12 @@ a {
     color: inherit;
 }
 
-h1 {
-    font-size: 60px;
-    font-weight: normal;
+h1 img{
+    margin-top: 300px;
+    margin-right: 300px;
+    margin-bottom: -100px;
+    width: 700px;
+    height: 400px;
     margin-bottom: 5px;
     
 }
@@ -47,7 +60,7 @@ h1 {
     flex-direction: row;
     justify-content: space-between;
     height: 600px;
-    border-bottom: 3px solid #5B6AC2;
+    margin-bottom: 100px;
 }
 
 body {
@@ -55,7 +68,9 @@ body {
 }
 
 .comecoTexto p {
-    width: 500px
+    width: 700px;
+    font-size: 30px;
+    margin-top: -100px ;
 
 }
 
@@ -63,10 +78,9 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    font-size: 22px;
-    width: 400px;
-    margin-left: 300px;
-    margin-top: -80px;
+    width: 550px;
+    margin-left: 180px;
+    margin-top: -350px;
 
 }
 
@@ -103,17 +117,18 @@ body {
     margin-top: 85px;
 }
 
-#visaoGeral {
+.visaoGeral {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 50px;
     align-items: center;
-    border-bottom: 3px solid #5B6AC2;
 }
 
 #funcionalidades {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -138,5 +153,97 @@ body {
 }
 
 .gradeCoisas {
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+    
 
 }
+
+.linhaItem{
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-around;
+    width: 100%;
+}
+
+.tituloVisao{
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 60px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.7);
+    background-color: #5B6AC2;
+    color: white;
+    width: 400px;
+    border-radius: 20px;
+    margin-bottom: 60px;
+
+}
+
+.tituloFunc{
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 60px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.7);
+    background-color: #5B6AC2;
+    color: white;
+    width: 500px;
+    border-radius: 20px;
+    margin-bottom: 100px;
+}
+.gradeCoisas p {
+    width: 350px;
+
+
+}
+h2{
+    font-size: 40px;
+}
+
+.itemGrade{
+    display: flex;
+    
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    width: 500px;
+}
+.itemGrade .texto{
+    display: flex;
+    background-color: #5B6AC2;
+    border-radius: 30px;
+    height: 200px;
+    width: 410px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    transition: transform 0.4s;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.7);
+}
+
+#desHospital{
+    margin-bottom: 110px;
+}
+
+.texto:hover{
+    transform: translateY(-10px); 
+
+}
+.p21 img{
+    margin-bottom: 50px;
+}
+
+
+
+.p22 img{
+    margin-bottom: 60px;
+}
+
+.p23 img{
+    margin-bottom: 15px;
+    height: 300px;
+}
+
