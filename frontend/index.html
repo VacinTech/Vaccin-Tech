@@ -3,44 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VacinTech</title>
+    <title>VaccinTech</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="container">
       <header class="cabecalho">
         <div class="logotipo">
-          <img id="logo" src="" /> Aqui tem que colocar a logo, mas ta como pago
-          no canva Vacintech
+          <img id="logo" height="55px" width="55px"src="img/logo-VacinTech.png" /> 
         </div>
-        <div class="navegacao">
-          <a href="#visao-geral">Visão Geral</a>
-          <a href="#funcionalidades">Funcionalidades</a>
-          <a href="">Calculadora</a>
-          <a href="dashboard.html">Dashboard</a>
+        <div id="nome">
+          VACCIN<span style="color:rgb(42, 58, 85)">TECH </span>
         </div>
-        <div class="perfilUsuarip">
-          Olá, acesse sua conta<br />
-          <strong>ou faça seu cadastro</strong>
-          <img id="fotoUsuario" src="" />
+        <ul class="navegacao">
+          <li>
+            <a href="#visao-geral">Visão Geral</a> </li>
+          <li>
+            <a href="#funcionalidades">Funcionalidades</a> </li>
+          <li>
+            <a href="">Calculadora</a> </li>
+          <li>
+            <a href="dashboard.html">Dashboard</a> </li>
+        </ul>
+        <div class="perfilUsuario">
+          <div id="textoPerfil">Olá, acesse sua conta<br/>
+          <strong> ou faça seu cadastro</strong> </div>
+          <img id="fotoUsuario" height="100px" width= "100px"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO14C3vuPxliUNKaNLf7tUwyKwS-fQKcmYXMQxVshpgaa7t_De" />
         </div>
       </header>
 
       <section id="comeco">
         <div class="comecoTexto">
-          <h1>Bem-vindo à<br />VacinTech</h1>
+          <h1> <span style="color:#5B6AC2"> Bem-vindo à </span><br />VaccinTech</h1>
           <p>
-            O VacinTech é uma solução baseada em IoT que monitora a temperatura
+            O VaccinTech é uma solução baseada em IoT que monitora a temperatura
             de vacinas em tempo real durante o transporte, reduzindo perdas,
             garantindo sua eficácia e contribuindo para a segurança da saúde
             pública.
           </p>
         </div>
-        <img id="fotoMedica" src="" />
+        <img id="fotoMedica" height="600px"width="500px"src="https://medicinasa.com.br/wp-content/uploads/2025/04/vacina-1b-850x560.jpg" />
       </section>
 
       <section class="gradeCoisas" id="visaoGeral">
         <div class="itemGrade">
-          <img id="desHospital" src="" />
+          <img id="desHospital" src="https://cdn-icons-png.flaticon.com/512/7757/7757838.png" />
           <h3>Riscos à Saúde Pública</h3>
           <p>
             Vacinas expostas a temperaturas fora da faixa de 2°C a 8°C perdem
@@ -50,7 +62,7 @@
           </p>
         </div>
         <div class="itemGrade">
-          <img id="desPrejuizo" src="" />
+          <img id="desPrejuizo" src="https://thumbs.dreamstime.com/b/ilustra%C3%A7%C3%A3o-do-vetor-da-perda-dinheiro-liso-dos-desenhos-animados-com-para-baixo-seta-armazena-o-gr%C3%A1fico-conceito-crise-114225921.jpg" />
           <h3>Prejuízo Financeiro</h3>
           <p>
             Lotes inteiros de vacinas podem custar milhões. Uma falha de
@@ -60,7 +72,7 @@
           </p>
         </div>
         <div class="itemGrade">
-          <img id="desGlobo" src="" />
+          <img id="desGlobo" src="https://img.freepik.com/vetores-gratis/importacao-e-exportacao-de-desenho-a-mao-com-caminhao_23-2149160485.jpg?semt=ais_hybrid&w=740&q=80" />
           <h3>Pontos Cegos na Logística</h3>
           <p>
             A ausência de monitoramento contínuo durante o transporte cria
@@ -72,7 +84,7 @@
 
       <section class="gradeCoisas" id="funcionalidades">
         <div class="itemGrade">
-          <img id="desSensor" src="" />
+          <img id="desSensor" src="https://www.trastejant.com/wp-content/uploads/2016/10/lm35.png" />
           <h3>Monitoramento em tempo real</h3>
           <p>
             Sensores LM35 de alta precisão realizam a leitura contínua da
@@ -81,7 +93,7 @@
           </p>
         </div>
         <div class="itemGrade">
-          <img id="desBd" src="" />
+          <img id="desBd" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR8hj7keaFqezBE5w_sn5oD1B63SD3RNMMndhbDEefm7-y2k48A" />
           <h3>Coleta e armazenamento de dados</h3>
           <p>
             O sistema embarcado envia automaticamente as informações térmicas
@@ -90,7 +102,7 @@
           </p>
         </div>
         <div class="itemGrade">
-          <img id="desAlerta" src="" />
+          <img id="desAlerta" src="https://img.freepik.com/vetores-gratis/icone-de-sirene_632498-3822.jpg?semt=ais_hybrid&w=740&q=80" />
           <h3>Alertas inteligentes</h3>
           <p>
             O dashboard identifica variações fora da faixa ideal (2°C a 8°C) e
