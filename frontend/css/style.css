@@ -233,7 +233,7 @@ h2{
 
 }
 .p21 img{
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 
@@ -247,3 +247,10 @@ h2{
     height: 300px;
 }
 
+
+
+ canvas {
+        width: 500px;
+        height: 100px;
+        background-color: #0c0b0b;
+      }
