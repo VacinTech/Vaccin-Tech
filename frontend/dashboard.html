@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -26,10 +30,10 @@
       </div>
       <ul class="navegacao">
         <li>
-          <a href="index.html">Visão Geral</a>
+          <a href="index.html#visao-geral">Visão Geral</a>
         </li>
         <li>
-          <a href="#funcionalidades">Funcionalidades</a>
+          <a href="index.html#funcionalidades">Funcionalidades</a>
         </li>
         <li>
           <a href="">Calculadora</a>
@@ -51,12 +55,43 @@
         />
       </div>
     </header>
-    <div id="status-box">
-      <h1>Temperatura Sensores:</h1>
-    </div>
 
-    <div class="chart-container">
-      <canvas id="myChart"></canvas>
+    <div class="containerP">
+      <div class="espe">
+        <span class="linha"
+          ><span>ID</span>
+          <span>COR</span>
+          <span>PLACA</span> <span>UNIDADES</span> <span>ROTA</span>
+          <span>TEMP</span> <span>ALERTA</span></span
+        >
+        <span class="linha linfo"
+          ><span>12</span> <span class="cor c1"></span> <span>BRA2D47</span>
+          <span>Unidades: 12.000</span> <span>São Paulo → Rio de Janeiro</span>
+          <span class="tempInfo">4.0°C</span>
+          <span class="alertL al1">✔ OK</span></span
+        >
+        <span class="linha linfo"
+          ><span>45</span> <span class="cor c2"></span> <span>SPK5J19</span>
+          <span>Unidades: 2.500</span> <span>Santos → Recife</span>
+          <span class="tempInfo">2.5°C</span>
+          <span class="alertL al2">⚠ ATC</span></span
+        >
+        <span class="linha linfo"
+          ><span>09</span> <span class="cor c3"></span> <span>LTX3B82</span>
+          <span>Unidades: 15.200</span> <span>Belo Horizonte → Bahia</span>
+          <span class="tempInfo">8.5°C</span>
+          <span class="alertL al3">✖ PER</span></span
+        >
+        <span class="linha linfo"
+          ><span>88</span> <span class="cor c4"></span> <span>QMV7A64</span>
+          <span>Unidades: 9.300</span> <span>Rio de Janeiro → Cabo frio</span>
+          <span class="tempInfo">6.8°C</span>
+          <span class="alertL al4">✔ OK</span></span
+        >
+      </div>
+      <div class="chart-container">
+        <canvas id="myChart"></canvas>
+      </div>
     </div>
 
     <script>

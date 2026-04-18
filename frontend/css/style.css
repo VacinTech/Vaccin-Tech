@@ -8,6 +8,7 @@ header {
 }
 
 html{
+    font-family: 'Inter', sans-serif;
     scroll-behavior: smooth;
 }
 
@@ -260,13 +261,82 @@ h2{
 
 
 
-.chart-container {
-  width: 700px;
-  height: 400px;
-  margin: auto;
-}
+
 #status-box {
   text-align: center;
   font-family: sans-serif;
   margin-bottom: 20px;
+}
+
+.chart-container{
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.7);
+    border-radius: 20px;
+    width: 800px;
+    margin-top: 20px;
+    margin-left: 80px;
+}
+.espe{
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.7);
+    height: 150px;
+    width: 850px;
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.linha{
+    border-bottom: solid 2px #5B6AC2;
+    display: grid;
+    grid-template-columns: 60px 60px 120px 160px 240px 120px 100px;
+    align-items: center;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.cor{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.c1{
+    background-color: #FF7A00;
+}
+.c2{
+    background-color: #007BFF;
+}
+.c3{
+    background-color: #8A2BE2;
+}
+.c4{
+    background-color: #c7f000;
+}
+
+.tempInfo{
+    font-size: 20px;
+    font-weight: bold;
+}
+.alertL{
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.al1{
+    background-color: greenyellow;
+
+}
+.al2{
+    background-color: yellow;
+    
+}
+.al3{
+    background-color: red;
+    
+}
+.al4{
+    background-color: greenyellow;
+    
 }
