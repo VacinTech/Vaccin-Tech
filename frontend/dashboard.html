@@ -36,10 +36,13 @@
           <a href="index.html#funcionalidades">Funcionalidades</a>
         </li>
         <li>
-          <a href="">Calculadora</a>
+          <a href="calculadora.html">Calculadora</a>
         </li>
         <li>
           <a href="dashboard.html">Dashboard</a>
+        </li>
+        <li>
+          <a href="addVacina.html">Adicionar</a>
         </li>
       </ul>
       <div class="perfilUsuario">
@@ -57,42 +60,89 @@
     </header>
 
     <div class="containerP">
-      <div class="espe">
-        <span class="linha"
-          ><span>ID</span>
-          <span>COR</span>
-          <span>PLACA</span> <span>UNIDADES</span> <span>ROTA</span>
-          <span>TEMP</span> <span>ALERTA</span></span
-        >
-        <span class="linha linfo"
-          ><span>12</span> <span class="cor c1"></span> <span>BRA2D47</span>
-          <span>Unidades: 12.000</span> <span>São Paulo → Rio de Janeiro</span>
-          <span class="tempInfo">4.0°C</span>
-          <span class="alertL al1">✔ OK</span></span
-        >
-        <span class="linha linfo"
-          ><span>45</span> <span class="cor c2"></span> <span>SPK5J19</span>
-          <span>Unidades: 2.500</span> <span>Santos → Recife</span>
-          <span class="tempInfo">2.5°C</span>
-          <span class="alertL al2">⚠ ATC</span></span
-        >
-        <span class="linha linfo"
-          ><span>09</span> <span class="cor c3"></span> <span>LTX3B82</span>
-          <span>Unidades: 15.200</span> <span>Belo Horizonte → Bahia</span>
-          <span class="tempInfo">8.5°C</span>
-          <span class="alertL al3">✖ PER</span></span
-        >
-        <span class="linha linfo"
-          ><span>88</span> <span class="cor c4"></span> <span>QMV7A64</span>
-          <span>Unidades: 9.300</span> <span>Rio de Janeiro → Cabo frio</span>
-          <span class="tempInfo">6.8°C</span>
-          <span class="alertL al4">✔ OK</span></span
-        >
+      <div class="topoInfo">
+        <div class="espe">
+          <span class="linha"
+            ><span>ID</span>
+            <span>COR</span>
+            <span>PLACA</span> <span>UNIDADES</span> <span>ROTA</span>
+            <span>TEMP</span> <span>ALERTA</span></span
+          >
+          <span class="linha linfo"
+            ><span>12</span> <span class="cor c1"></span> <span>BRA2D47</span>
+            <span>Unidades: 12.000</span>
+            <span>São Paulo → Rio de Janeiro</span>
+            <span class="tempInfo">4.0°C</span>
+            <span class="alertL al1">✔ OK</span></span
+          >
+          <span class="linha linfo"
+            ><span>45</span> <span class="cor c2"></span> <span>SPK5J19</span>
+            <span>Unidades: 2.500</span> <span>Santos → Recife</span>
+            <span class="tempInfo">2.5°C</span>
+            <span class="alertL al2">⚠ ATC</span></span
+          >
+          <span class="linha linfo"
+            ><span>09</span> <span class="cor c3"></span> <span>LTX3B82</span>
+            <span>Unidades: 15.200</span> <span>Belo Horizonte → Bahia</span>
+            <span class="tempInfo">8.5°C</span>
+            <span class="alertL al3">✖ PER</span></span
+          >
+          <span class="linha linfo"
+            ><span>88</span> <span class="cor c4"></span> <span>QMV7A64</span>
+            <span>Unidades: 9.300</span> <span>Rio de Janeiro → Cabo frio</span>
+            <span class="tempInfo">6.8°C</span>
+            <span class="alertL al4">✔ OK</span></span
+          >
+        </div>
+        <div class="caixaAlerta">
+          <span class="perigo"><span class="x">X PERIGO</span> alerta</span>
+          <span class="textoAlerta">Sensores fora da zona de preservação:</span
+          ><br />
+          <span class="sensorAlerta">ID: 09 - Belo Horizonte → Bahia</span>
+        </div>
       </div>
-      <div class="chart-container">
-        <canvas id="myChart"></canvas>
+      <div class="graficoArea">
+        <div class="chart-container">
+          <canvas id="myChart"></canvas>
+        </div>
+
+        <div class="novaCaixa">
+          <div class="tempoFora">
+            <div class="tituloTempo">⚠ TEMPO FORA DA FAIXA IDEAL</div>
+
+            <div class="sensor atencao att1">
+              <span>Sensor 09</span>
+              <span>13 min</span>
+            </div>
+
+            <div class="sensor atencao att2">
+              <span>Sensor 45</span>
+              <span>4 min</span>
+            </div>
+
+            <div class="sensor atencao att3">
+              <span>-- -- </span>
+              <span>-- min</span>
+            </div>
+
+            <div class="ultimaHora">🕒 Última 1h</div>
+          </div>
+
+          <div class="vacinasRisco">
+            <div class="valor">
+              <span class="icone">$</span>
+              <div>
+                <div class="dinheiro">R$ 150.450</div>
+                <div class="descricao">em vacinas sob risco</div>
+              </div>
+            </div>
+
+            <div class="critico">⚠ 1 sensor crítico</div>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="containerPD"></div>
 
     <script>
       const labels = ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
@@ -103,28 +153,28 @@
           labels: labels,
           datasets: [
             {
-              label: "Transporte 1",
+              label: "SENSOR ID: 12  ",
               data: [4.5, 5.0, 4.3, 4.1, 3.7, 4.0],
               backgroundColor: ["#FF7A00"],
               borderColor: ["#FF7A00"],
               borderWidth: 3,
             },
             {
-              label: "Transporte 2",
+              label: "SENSOR ID: 45  ",
               data: [3, 3, 3.8, 4.2, 3.5, 2.5],
               backgroundColor: ["#007BFF"],
               borderColor: ["#007BFF"],
               borderWidth: 3,
             },
             {
-              label: "Transporte 3",
+              label: "SENSOR ID: 09  ",
               data: [5, 5.3, 5.6, 6, 6.3, 6.8],
               backgroundColor: ["#8A2BE2"],
               borderColor: ["#8A2BE2"],
               borderWidth: 3,
             },
             {
-              label: "Transporte 4",
+              label: "SENSOR ID: 88  ",
               data: [5, 5.8, 6.2, 6.9, 7.4, 8.5],
               backgroundColor: ["#c7f000"],
               borderColor: ["#c7f000"],
