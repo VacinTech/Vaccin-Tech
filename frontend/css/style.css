@@ -6,6 +6,9 @@
     scroll-behavior: smooth;
 }
 
+body{
+  zoom: 0.9;
+}
 header {
     display: flex;
     justify-content: space-between;
@@ -33,6 +36,7 @@ header {
 .img-logo{
     width: 250px;
     margin-left:50px ;
+    cursor: pointer;
 }
 
 .perfilUsuario {
@@ -598,7 +602,7 @@ h2{
     font-size: 30px;
     margin-bottom: 30px;
     color: black;
-    border-bottom: solid 3px #8A2BE2;
+    border-bottom: solid 3px #5b6ac2;
     width: 470px ;
     
 }
@@ -618,4 +622,28 @@ h3{
     justify-content: center; 
     align-items: center;     
     height: calc(100vh - 100px);
+}
+
+.btn-add-vacina{
+    color: #fff;
+    border-radius: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+    padding: 10px;
+    align-self: center;
+    border: none;
+     background-color: #5b6ac2;
+    border: 1px solid #fff;
+}
+
+.btn-add-vacina:hover{
+    background-color: #fff;
+    color: #5b6ac2;
+    border: 1px solid #5b6ac2; 
+    font-weight: bold;
+    transition: background-color 0.6s, color 0.2s, border-color 0.6s;
+    cursor: pointer;
+    border: none;
 }
