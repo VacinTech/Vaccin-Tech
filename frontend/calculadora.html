@@ -39,16 +39,16 @@
         <input type="text" id="input_nome" />
         <br>
         <label>Insira a quantidade de unidades por lote:</label>
-        <input type="text" id="input_por_lote" />
+        <input type="number" id="input_por_lote" />
         <br>
         <label>Insira a quantidade de lotes:</label>
-        <input type="text" id="input_qtd_lotes" />
+        <input type="number" id="input_qtd_lotes" />
         <br>
         <label>Insira o preço médio de produção <b>por</b> vacina:</label>
-        <input type="text" id="input_preco" />
+        <input type="number" id="input_preco" />
         <br>  
         <label>Insira a quantidade de viagens realizadas no mês:</label>
-        <input type="text" id="input_qtd_viagem" />
+        <input type="number" id="input_qtd_viagem" />
         <br>
         <label>Insira veículo que vai realizar o transporte:</label>
         <input type="text" id="input_veiculo" />
@@ -130,17 +130,20 @@ e um prejuízo anual de
 <b style="color:#10cc00;">Com o sistema VaccinTech:</b><br><br>
 
 O alerta rápido evita a perda de aproximadamente
-<b style="color:#10cc00;">${vacinasPerdidas.toLocaleString()}</b> vacinas por mês.
+<b style="color:#10cc00;">${vacinasPerdidas.toLocaleString()}</b> vacinas por mês gerando uma
 
-Economia mensal de
+economia mensal de
 <b style="color:#10cc00;">${economiaMensal.toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
-    })}</b>.<br>
-
+    })}</b>.
 No ano, cerca de
-<b style="color:#10cc00;">${vacinasSalvasAno.toLocaleString()}</b> vacinas podem ser preservadas.
-</span>
+<b style="color:#10cc00;">${vacinasSalvasAno.toLocaleString()}</b> vacinas podem ser preservadas
+</span> gerando uma economia anual de 
+    <b style="color:#10cc00;">${prejuizoAnual.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    })}.</b>
 `;
   }
 </script>
