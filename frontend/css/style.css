@@ -680,3 +680,11 @@ a:hover{
     padding: 200px;
     font-size: 25px;
 }
+
+.legenda-dash{
+    font-weight: bold;  
+}
+
+.cor-preta{
+    color: black;
+}
