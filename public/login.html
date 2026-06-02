@@ -30,7 +30,7 @@
                 </form>
                 <div id="mensagem"></div>
                 <a href="#" class="ancora">Esqueceu sua senha?</a>
-                <button onclick="entrar()" class="btn btn_coluna2"><a href="#">ENTRAR</a></button>
+                <button onclick="login()" class="btn btn_coluna2"><a href="#">ENTRAR</a></button>
             </section>
         </section>
     </main>
@@ -38,14 +38,56 @@
 
 </html>
 <script>
-    function entrar() {
-        let email = input_email.value;
-        let senha = input_senha.value;
-        if (email == 'claudio.frizzarini@vaccintech.com' && senha == 'Frizza@123') {
-            mensagem.innerHTML = ``
-            window.location.href = "addVacina.html"; // C:\Users\anasa\Desktop\AulaP.I-API-Cadastro\Vacin-Tech\frontend\dashboard.html
-        } else {
-            mensagem.innerHTML = `<span style="color: red;">E-mail ou senha incorretos</span>`
+    function login() {
+        msg = '';
+        let emailVar = ipt_email.value;
+        let senhaVar = ipt_senha.value;
+
+        if (emailVar == '' || senhaVar == '') {
+            msg = `Bem-vindo de volta!`
         }
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+
+                    setTimeout(function () {
+                        window.location.href = "../albuns/albuns.html"
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        div_msg.innerHTML = msg;
+        return false;
     }
 </script>
