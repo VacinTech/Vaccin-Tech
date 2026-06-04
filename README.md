@@ -7,7 +7,7 @@ O VaccinTech é um sistema de monitoramento de temperatura para o transporte de 
 • HTML5  
 • CSS3  
 • JavaScript  
-• Node.js   
+• Node.js  
 • MySQL Workbench  
 • Arduino UNO  
 • Sensor LM35  
@@ -15,5 +15,5 @@ O VaccinTech é um sistema de monitoramento de temperatura para o transporte de 
 • GitHub  
 • Visual Studio Code (VS Code)  
 • Trello  
-• Canva 
+• Canva  
 • Jira
