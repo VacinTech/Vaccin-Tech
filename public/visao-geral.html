@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/stylecsscargadash.css">
+    <title>Veículo</title>
+</head>
+<body>
+    <div class="container-principal-veiculos">
+        <div class="nav-vertical nav-veiculo">
+            <h2 style="color: #fff; letter-spacing: 0.15rem;">VACCIN<span style="color: #153963;">TECH</span></h2>
+            <ul>
+                <li><a href="cadastrar-carga.html"><i class="fas fa-solid fa-truck-fast"></i> Cadastrar Carga</a> </li>
+                <li><a href="veiculo-em-rota.html"><i class="fas fa-solid fa-road"></i> Veículos em rota</a></li>
+                <li><a href="visao-geral.html"><i class="fas fa-solid fa-magnifying-glass"></i>Visão Geral</a></li>
+                <li><a href="index.html"><i class="fas fa-solid fa-house"></i>Voltar</a></li>
+            </ul>
+        </div>
+
+        <div class="conteudo-dashboard-veiculos">
+            <h1 style="font-size: 40px;">
+                VEÍCULO <span>ID5</span>
+            </h1>
+            <div class="legendas">
+                <div class="status ideal">
+                    <h3>IDEAL</h3>
+                    <p>>=2 || <=8 </p>
+                </div>
+                <div class="status alerta">
+                    <h3>EM ALERTA</h3>
+                    <p>
+                        <=1 ||>7
+                    </p>
+                </div>
+                <div class="status critico">
+                    <h3>CRÍTICO</h3>
+                    <p>
+                        <2 ||>8
+                    </p>
+                </div>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <h4>TEMPERATURA ATUAL</h4>
+                </div>
+                <div class="card">
+                    <h4>MÍNIMA</h4>
+                </div>
+                <div class="card">
+                    <h4>MAX</h4>
+                </div>
+                <div class="card">
+                    <h4>STATUS</h4>
+                </div>
+            </div>
+            <div class="grafico"></div>
+        </div>
+    </div>
+</body>
+
+</html>

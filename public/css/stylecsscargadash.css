@@ -10,14 +10,13 @@
 }
 
 .container-principal-veiculos{
-    min-height: 100vh;
-    width: 99vw;
+    height: 100vh;
+    width: 100vw;
     display: flex;
 }
 
 
 .container-principal-veiculos .nav-vertical{
-    min-height: 100vh;
     width: 20%;
     height: 100%;
     background-color: #5b6ac2;
@@ -43,7 +42,6 @@
 
 }
 
-
 .container-principal-veiculos .nav-vertical ul li a .fas{
     width: 25px;
 }
@@ -58,9 +56,10 @@
 }
 
 .container-veiculos{
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 }
 
 .container-caixas-veiculos{
@@ -88,7 +87,7 @@
 }
 .texto-veiculos{
     padding-top: 20px;
-    font-size: 45px;
+    font-size: 36px;
     text-align: center;
     color: #5462b1;
 }
@@ -114,4 +113,208 @@
   text-align: center;
   font-size: 18px;
   font-weight: bold;
+}
+
+/* cadastrar carga */
+
+.container_cadastro {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(84, 98, 177, 0.1);
+    border-radius: 10px;
+}
+
+.container_cadastro h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 26px;
+    color: black;
+}
+
+.form_carga {
+    background-color: #5B6AC2;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 85%;
+    padding: 25px;
+    gap: 10px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo label {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.campo input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 15px;
+}
+
+.temperatura {
+    display: flex;
+    gap: 10px;
+}
+
+.temperatura .campo {
+    flex: 1;
+}
+
+.btn_adicionar {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: #4B59AA ;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    
+}
+
+.btn_adicionar:hover {
+    transform: translateY(-2px);
+    transition: 0.5s;
+    background-color: #5E6CBF ;
+}
+
+/* veículo especifico */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.conteudo-principal-dashboard{
+    width:100%;
+    display:flex;
+    background:#efefef;
+}
+
+.menu-lateral{
+    width:10%;
+    background:#e6ceb0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-evenly;
+}
+
+.id-veiculo{
+    width:28px;
+    height:28px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:12px;
+}
+
+.vermelho{
+    background:#ff3d3d;
+}
+
+.amarelo{
+    background:#f3d34a;
+}
+
+.verde{
+    background:#77d957;
+}
+
+.conteudo-dashboard-veiculos{
+    width: 100%;
+    flex:1;
+    padding:20px;
+}
+
+.conteudo-dashboard-veiculos h1{
+    text-align:center;
+    font-size:60px;
+    font-weight:900;
+}
+
+.conteudo-dashboard-veiculos h1 span{
+    color:#7dd957;
+}
+
+.legendas{
+    display:flex;
+    justify-content:center;
+    gap:35px;
+    margin-top:20px;
+}
+
+.status{
+    width:95px;
+    height:55px;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    font-size:12px;
+}
+
+.ideal{
+    background:#7dd957;
+}
+
+.alerta{
+    background:#f3d34a;
+}
+
+.critico{
+    background:#ff3838;
+}
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:55px;
+
+    margin-top:30px;
+}
+
+.card{
+    width:180px;
+    height:100px;
+    background:#6c79c3;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding-top:10px;
+    border-radius: 5px;
+}
+
+.card h4{
+    font-size:14px;
+    text-align:center;
+}
+
+.grafico{
+    width:85%;
+    height:350px;
+    background:#e6ceb0;
+    margin:30px auto;
+}
+
+.nav-veiculo{
+    width: 256px !important;
 }
