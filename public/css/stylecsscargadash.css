@@ -103,21 +103,23 @@
     font-size: 18px;
 }
 .circulo-id{
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 60px;
   background-color: #ff0000;
-  border-radius: 50%;
+  border-radius: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   font-size: 18px;
   font-weight: bold;
+
 }
 
 .link-ver-mais{
     position: relative;
-    bottom: 15px;
+    left: 50px;
+    bottom: 12px;
     color: rgb(69, 69, 69);
 }
 
@@ -262,7 +264,7 @@
 }
 
 .conteudo-dashboard-veiculos h1 span{
-    color:#7dd957;
+    color:#5b6ac2;
 }
 
 .legendas{
@@ -299,7 +301,6 @@
     display:flex;
     justify-content:center;
     gap:55px;
-
     margin-top:30px;
 }
 
