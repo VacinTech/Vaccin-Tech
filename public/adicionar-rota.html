@@ -100,6 +100,10 @@
         document.getElementById("ipt_qtd_vacina").value = '';
         document.getElementById("ipt_origem").value = '';
         document.getElementById("ipt_destino").value = '';
+
+        setTimeout(function () {
+          window.location.href = "veiculos-em-rota.html";
+        }, 2000);
       } else {
         alert("Erro ao cadastrar carga. Tente novamente.");
       }

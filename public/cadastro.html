@@ -11,7 +11,7 @@
     <title>Cadastro VaccinTech</title>
 </head>
 
-<body>
+<body onload="carregarEmpresas()">
     <main class="container">
         <section class="conteudo">
             <section class="primeira_coluna">
@@ -25,11 +25,11 @@
             </section>
             <section class="segunda_coluna">
                 <div class="conteudo-cadastro-empresa">
-                <h1 class="titulo coluna_2">Criar Conta</h1>
-                <p class="paragrafo">Preencha seus dados para ter acesso aos nossos serviços.</p>
+                    <h1 class="titulo coluna_2">Criar Conta</h1>
+                    <p class="paragrafo">Preencha seus dados para ter acesso aos nossos serviços.</p>
 
                 </div>
-             
+
                 <form class="formulario" style="display: flex;">
                     <div>
                         <input type="text" id="input_nome" placeholder="Nome:" required>
@@ -40,32 +40,29 @@
                     </div>
 
                     <div>
-                    <input type="password" id="input_confirmar" oninput="confirmarSenha()"
-                        placeholder="Confirme a sua senha" placeholder="Confirme a sua senha" required>
-                    
-                    <select id="selecione-perfil" class="select-cadastro-empresa">
-                        <option value="">Selecione o tipo de perfil</option>
-                        <option value="adm">Admnistrador</option>
-                        <option value="operario">Operário</option>
-                        <option value="gerente">Gerente</option>
-                    </select>
-                    
+                        <input type="password" id="input_confirmar" oninput="confirmarSenha()"
+                            placeholder="Confirme a sua senha" placeholder="Confirme a sua senha" required>
+
+                        <select id="selecione-perfil" class="select-cadastro-empresa">
+                            <option value="">Selecione o tipo de perfil</option>
+                            <option value="Admin">Admnistrador</option>
+                            <option value="Operário">Operário</option>
+                            <option value="Gerente">Gerente</option>
+                        </select>
 
 
-                    <select id="selecione-empresa" class="select-cadastro-empresa">
-                        <option value="">Selecione uma empresa</option>
-                        <option value="empresaA">Empresa A</option>
-                        <option value="empresaB">Empresa B</option>
-                        <option value="empresaC">Empresa C</option>
-                    </select>
-                    
-                </div>
-                
-                
-            </form>
-            <div class="paragrafo" id="div_msg"></div>
-            <button onclick="cadastrar()" class="btn btn_coluna2">CRIAR CONTA</button>
-            <!-- <a href="#" class="ancora">Clique aqui para cadastrar a sua empresa!</a> -->
+
+                        <select id="selecione-empresa" class="select-cadastro-empresa">
+                            <option value="">Selecione uma empresa</option>
+                        </select>
+
+                    </div>
+
+
+                </form>
+                <div class="paragrafo" id="div_msg"></div>
+                <button onclick="cadastrar()" class="btn btn_coluna2">CRIAR CONTA</button>
+                <!-- <a href="#" class="ancora">Clique aqui para cadastrar a sua empresa!</a> -->
             </section>
         </section>
     </main>
@@ -224,5 +221,26 @@
             });
 
         return false;
+    }
+
+    function carregarEmpresas() {
+        fetch("/empresas/listar")
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (dados) {
+                        const selectEmpresa = document.getElementById("selecione-empresa");
+                        let options = '<option value="">Selecione uma empresa</option>';
+                        for (let i = 0; i < dados.length; i++) {
+                            const empresa = dados[i];
+                            options += `<option value="${empresa.idEmpresa}">${empresa.razaoSocial}</option>`;
+                        }
+                        selectEmpresa.innerHTML = options;
+                    });
+                } else {
+                    console.error("Erro ao carregar empresas:", resposta.statusText);
+                }
+            }).catch(function (error) {
+                console.error("Erro na requisição:", error);
+            });
     }
 </script>
