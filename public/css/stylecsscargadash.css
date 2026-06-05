@@ -330,3 +330,13 @@
 .nav-veiculo{
     width: 256px !important;
 }
+
+.select-cadastro-vacina{
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    color: grey;
+    font-size: 15px;
+}
+
