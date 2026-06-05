@@ -19,9 +19,8 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var vacinaRouter = require("./src/routes/vacinas");
 var transporteRouter = require("./src/routes/transportes");
-var rotasRouter = require("./src/routes/viagem");
 var empresasRouter = require("./src/routes/empresas");
-var viagemRouter = require("./src/routes/viagem");
+var viagensRouter = require("./src/routes/viagens");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,9 +32,8 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/vacinas", vacinaRouter);
 app.use("/transportes", transporteRouter);
-app.use("/rotas", rotasRouter);
 app.use("/empresas", empresasRouter);
-app.use("/viagem", viagemRouter);
+app.use("/viagens", viagensRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
