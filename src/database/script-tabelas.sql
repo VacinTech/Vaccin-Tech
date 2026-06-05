@@ -92,6 +92,13 @@ CREATE TABLE alerta (
         REFERENCES Monitoramento(idMonitoramento)
 );
 
+INSERT INTO empresa (razaoSocial, cnpj, telefone) VALUES
+('BioVac Transportes Farmacêuticos LTDA', '12345678000101', '1134567890'),
+('ImunoLog Logística de Vacinas S.A.', '23456789000102', '1145678901'),
+('ColdChain Saúde LTDA', '34567890000103', '1156789012'),
+('VacinaSeg Transporte Especializado LTDA', '45678901000104', '1167890123'),
+('PharmaFrio Distribuição de Imunobiológicos LTDA', '56789012000105', '1178901234');
+
 -- select da ultima temperatura
 -- É o mesmo para a KPI de faixa atual
 select temperatura 
