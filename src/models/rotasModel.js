@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function  (empresaId) {
+function  buscarRotasPorEmpresa(empresaId) {
 
   var instrucaoSql = `select vi.idViagem, vi.origem, vi.destino,
 	tr.placa,
