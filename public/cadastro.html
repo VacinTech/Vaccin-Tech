@@ -14,7 +14,7 @@
 <body>
     <main class="container">
         <section class="conteudo">
-            <section class="primeira_coluna">
+            <section class="primeira_cosluna">
                 <a href="index.html">
                     <i class="fa-solid fa-arrow-left seta-login-cadastro" style="color: white;"></i>
                 </a>
@@ -34,9 +34,16 @@
                         placeholder="Senha:" required>
                     <input type="password" id="input_confirmar" oninput="confirmarSenha()"
                         placeholder="Confirme a sua senha" placeholder="Confirme a sua senha" required>
+
+                    <select id="selecione-empresa" class="select-cadastro-empresa">
+                        <option value="">Selecione uma empresa</option>
+                        <option value="empresaA">Empresa A</option>
+                        <option value="empresaB">Empresa B</option>
+                        <option value="empresaC">Empresa C</option>
+                    </select>
                 </form>
                 <div class="paragrafo" id="div_msg"></div>
-                <button onclick="cadastrar()" class="btn btn_coluna2"><a href="#">CRIAR CONTA</a></button>
+                <button onclick="cadastrar()" class="btn btn_coluna2">CRIAR CONTA</button>
             </section>
         </section>
     </main>
@@ -150,50 +157,50 @@
         let emailVar = input_email.value;
         let senhaVar = input_senha.value;
         let confVar = input_confirmar.value;
-        
-        
-    // Verificação de campos em branco
-    if (nomeVar == '' || emailVar == '' || senhaVar == '' || confVar == '') {
-        div_msg.innerHTML = `<span style="color: red;">Preencha os campos vazios</span>`;
-        return false;
-    }
 
-    // Bloqueia o envio se as regras visuais de validação falharem
-    if (!validacaoEmail || !validacaoSenha || !validacaoConfirmacao) {
-        div_msg.innerHTML = `<span style="color: red;">Por favor, atenda a todos os critérios de validação antes de prosseguir.</span>`;
-        return false;
-    }
 
-    fetch("usuarios/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            nomeServer: nomeVar,
-            emailServer: emailVar,
-            senhaServer: senhaVar,
-        }),
-    })
-    .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-            div_msg.innerHTML = `<span style="color: green;">Cadastro realizado com sucesso! Redirecionando para tela de Login...</span>`;
-            
-            setTimeout(() => {
-                window.location = "login.html";
-            }, 2000);
-            
-        } else {
-            throw new Error("Houve um erro ao tentar realizar o cadastro!");
+        // Verificação de campos em branco
+        if (nomeVar == '' || emailVar == '' || senhaVar == '' || confVar == '') {
+            div_msg.innerHTML = `<span style="color: red;">Preencha os campos vazios</span>`;
+            return false;
         }
-    })
-    .catch(function (erro) {
-        console.log(`#ERRO: ${erro}`);
-        div_msg.innerHTML = `<span style="color: red;">Erro no servidor ao tentar cadastrar.</span>`;
-    });
 
-    return false;
+        // Bloqueia o envio se as regras visuais de validação falharem
+        if (!validacaoEmail || !validacaoSenha || !validacaoConfirmacao) {
+            div_msg.innerHTML = `<span style="color: red;">Por favor, atenda a todos os critérios de validação antes de prosseguir.</span>`;
+            return false;
+        }
+
+        fetch("usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    div_msg.innerHTML = `<span style="color: green;">Cadastro realizado com sucesso! Redirecionando para tela de Login...</span>`;
+
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, 2000);
+
+                } else {
+                    throw new Error("Houve um erro ao tentar realizar o cadastro!");
+                }
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+                div_msg.innerHTML = `<span style="color: red;">Erro no servidor ao tentar cadastrar.</span>`;
+            });
+
+        return false;
     }
 </script>
