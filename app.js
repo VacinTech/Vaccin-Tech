@@ -17,9 +17,15 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
+<<<<<<< HEAD
 var vacinaRouter = require("./src/routes/vacinas");
 var transporteRouter = require("./src/routes/transportes");
 var viagemRouter = require("./src/routes/viagens");
+=======
+var avisosRouter = require("./src/routes/avisos");
+var medidasRouter = require("./src/routes/medidas");
+var rotasRouter = require("./src/routes/rotas");
+>>>>>>> ca0099215d6ce13af511145cf219943fc876440f
 var empresasRouter = require("./src/routes/empresas");
 
 app.use(express.json());
@@ -30,9 +36,15 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
+<<<<<<< HEAD
 app.use("/vacinas", vacinaRouter);
 app.use("/transportes", transporteRouter);
 app.use("/viagens", viagemRouter);
+=======
+app.use("/avisos", avisosRouter);
+app.use("/medidas", medidasRouter);
+app.use("/rotas", rotasRouter);
+>>>>>>> ca0099215d6ce13af511145cf219943fc876440f
 app.use("/empresas", empresasRouter);
 
 app.listen(PORTA_APP, function () {
