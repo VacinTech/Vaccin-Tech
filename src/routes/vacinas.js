@@ -7,7 +7,7 @@ router.post("/cadastrar", function (req, res) {
     vacinaController.cadastrar(req, res);
 })
 
-router.post("/listar", function (req, res) {
+router.get("/listar", function (req, res) {
     vacinaController.listar(req, res);
 });
 
