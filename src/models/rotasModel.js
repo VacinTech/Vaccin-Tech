@@ -4,6 +4,8 @@ function  buscarRotasPorEmpresa(empresaId) {
 
   var instrucaoSql = `select vi.idViagem, vi.origem, vi.destino,
 	tr.placa,
+  v.temperaturaMin,
+  v.temperaturaMax,
 	(
     select m.temperatura 
 	from Monitoramento m 
@@ -14,6 +16,7 @@ function  buscarRotasPorEmpresa(empresaId) {
     ) as temperaturaAtual
 		from viagem vi
         join transporte tr on vi.fkTransporte = tr.idTransporte
+        join vacina v on vi.fkVacina = v.idVacina
         where vi.statusViagem = 'Trânsito' and tr.fkEmpresa = ${empresaId};`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);

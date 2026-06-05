@@ -89,7 +89,8 @@
 </html>
 <script>
   function atualizarFeed() {
-    let idEmpresa = sessionStorage.ID_EMPRESA;
+    // let idEmpresa = sessionStorage.ID_EMPRESA;
+    let idEmpresa = 1;
 
     fetch(`/rotas/buscarRotasPorEmpresa/${idEmpresa}`)
       .then(function (resposta) {
@@ -109,6 +110,19 @@
             for (let i = 0; i < resposta.length; i++) {
               let rota = resposta[i];
 
+              let corTemperatura = "green";
+
+              if (
+                rota.temperaturaAtual < rota.temperaturaMin ||
+                rota.temperaturaAtual > rota.temperaturaMax
+              ) {
+                corTemperatura = "red";
+              } else if (
+                rota.temperaturaAtual == rota.temperaturaMin ||
+                rota.temperaturaAtual == rota.temperaturaMax
+              ) {
+                corTemperatura = "yellow";
+              }
               feed.innerHTML += `
                   <div class="caixa-veiculo">
                     <p class="texto-rota">
@@ -120,7 +134,7 @@
                         ${rota.temperaturaAtual}°C
                       </p>
                   
-                      <div class="circulo-id">
+                      <div class="circulo-id" style="background-color: ${corTemperatura}">
                         ${rota.placa}
                       </div>
                     </div>
