@@ -2,7 +2,7 @@ CREATE DATABASE VaccinTech;
 USE VaccinTech;
 
 
-CREATE TABLE Empresa (
+CREATE TABLE empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     razaoSocial VARCHAR(100),
     cnpj CHAR(14) UNIQUE,
@@ -17,6 +17,7 @@ CREATE TABLE usuario (
     senha VARCHAR(50),
     perfil VARCHAR(20),
     cpf CHAR(11) UNIQUE,
+    dtCadastro datetime default current_timestamp,
     fkEmpresa INT not null,
     CONSTRAINT chkPerfil CHECK (perfil IN ('Admin', 'Gerente', 'Operário')),
     CONSTRAINT fkUserEmpresa FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
@@ -24,22 +25,25 @@ CREATE TABLE usuario (
 
 
 
-CREATE TABLE Transporte (
+CREATE TABLE transporte (
     idTransporte INT PRIMARY KEY AUTO_INCREMENT,
-    placa VARCHAR(10) UNIQUE,
-    modelo VARCHAR(50),
+    placa VARCHAR(10) UNIQUE not null,
+    modelo VARCHAR(50) not null,
     tipoRefrigeramento VARCHAR(50),
     fkEmpresa INT not null,
     CONSTRAINT fkTranspEmpresa FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
-CREATE TABLE Vacina (
+CREATE TABLE vacina (
     idVacina INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
     fabricante VARCHAR(100),
     lote VARCHAR(50),
+    dtValidade date not null,
+    dtFabricacao date not null,
     temperaturaMin DECIMAL(4,2) DEFAULT 2.00, 
-    temperaturaMax DECIMAL(4,2) DEFAULT 8.00
+    temperaturaMax DECIMAL(4,2) DEFAULT 8.00,
+    dtCadastro datetime default current_timestamp
 );
 
 create table viagem (
@@ -57,10 +61,11 @@ constraint fkVacinaViagem foreign key (fkVacina)
 constraint fkTransporteViagem foreign key (fkTransporte)
 	references transporte(idTransporte),
     CONSTRAINT chkStatus CHECK (statusViagem IN ('Trânsito', 'Concluída', 'Cancelada'))
-);
+); 
 
 
-CREATE TABLE Sensor (
+
+CREATE TABLE sensor (
     idSensor INT PRIMARY KEY AUTO_INCREMENT,
     modelo VARCHAR(50) DEFAULT 'LM35',
     dataInstalacao DATE,
@@ -68,17 +73,16 @@ CREATE TABLE Sensor (
     CONSTRAINT fkSensorTransp FOREIGN KEY (fkTransporte) REFERENCES Transporte(idTransporte)
 );
 
-CREATE TABLE Monitoramento (
-    idMonitoramento INT AUTO_INCREMENT,
+CREATE TABLE monitoramento (
+    idMonitoramento INT PRIMARY KEY AUTO_INCREMENT,
     temperatura DECIMAL(5,2),
     dataHora DATETIME DEFAULT CURRENT_TIMESTAMP,
     fkSensor INT NOT NULL,
-    CONSTRAINT pkMonitoramento PRIMARY KEY (idMonitoramento, fkSensor),
     CONSTRAINT fkDadoSensor FOREIGN KEY (fkSensor) REFERENCES Sensor(idSensor)
 );
 
 
-CREATE TABLE Alerta (
+CREATE TABLE alerta (
     idAlerta INT,
     fkMonitoramento INT NOT NULL UNIQUE,
     tipoAlerta VARCHAR(50),
@@ -87,13 +91,6 @@ CREATE TABLE Alerta (
     CONSTRAINT fkAlertaMonitor FOREIGN KEY (fkMonitoramento) 
         REFERENCES Monitoramento(idMonitoramento)
 );
-
-insert into empresa (razaoSocial, cnpj, telefone) values
-('Pfizer Brasil Ltda', '12345678000101', '1130011001'),
-('BioNTech Logistica S.A.', '12345678000102', '1130011002'),
-('Vacina Express Transportes', '12345678000103', '1130011003'),
-('HealthCargo Distribuicao', '12345678000104', '1130011004'),
-('ImunoTech Solutions', '12345678000105', '1130011005');
 
 -- select da ultima temperatura
 -- É o mesmo para a KPI de faixa atual
@@ -131,3 +128,4 @@ select *
 	where idSensor = '${idSensor}';
     
     
+select * from usuario;
