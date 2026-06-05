@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./icons/vacinado.png">
     <link rel="stylesheet" href="css/styleCL.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>LOGIN VaccinTech</title>
@@ -39,12 +40,11 @@
 </html>
 <script>
     function login() {
-        msg = '';
         let emailVar = input_email.value;
         let senhaVar = input_senha.value;
 
         if (emailVar == '' || senhaVar == '') {
-            msg = `Bem-vindo de volta!`
+            mensagem.innerHTML = "Preencha todos os campos para prosseguir!";
         }
 
         fetch("/usuarios/autenticar", {
@@ -68,7 +68,7 @@
                     sessionStorage.NOME_USUARIO = json.nome;
 
                     setTimeout(function () {
-                        window.location.href = "/dashboard.html"
+                        window.location.href = "veiculo-em-rota.html"
                     }, 1000); // apenas para exibir o loading
 
                 });
