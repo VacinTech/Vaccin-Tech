@@ -14,7 +14,7 @@
 <body>
     <main class="container">
         <section class="conteudo">
-            <section class="primeira_cosluna">
+            <section class="primeira_coluna">
                 <a href="index.html">
                     <i class="fa-solid fa-arrow-left seta-login-cadastro" style="color: white;"></i>
                 </a>
@@ -24,16 +24,33 @@
                 <button class="btn btn_coluna1"><a href="login.html">ENTRAR</a></button>
             </section>
             <section class="segunda_coluna">
+                <div class="conteudo-cadastro-empresa">
                 <h1 class="titulo coluna_2">Criar Conta</h1>
-                <p class="paragrafo">Utilize seus dados pessoais para registrar-se</p>
-                <form class="formulario">
-                    <input type="text" id="input_nome" placeholder="Nome:" required>
-                    <input type="email" id="input_email" oninput="validarEmail()" onfocus="mostrarEmail()"
-                        placeholder="Email:" required>
-                    <input type="text" id="input_senha" oninput="validarSenha()" onfocus="validarSenha()"
-                        placeholder="Senha:" required>
+                <p class="paragrafo">Preencha seus dados para ter acesso aos nossos serviços.</p>
+
+                </div>
+             
+                <form class="formulario" style="display: flex;">
+                    <div>
+                        <input type="text" id="input_nome" placeholder="Nome:" required>
+                        <input type="email" id="input_email" oninput="validarEmail()" onfocus="mostrarEmail()"
+                            placeholder="Email:" required>
+                        <input type="text" id="input_senha" oninput="validarSenha()" onfocus="validarSenha()"
+                            placeholder="Senha:" required>
+                    </div>
+
+                    <div>
                     <input type="password" id="input_confirmar" oninput="confirmarSenha()"
                         placeholder="Confirme a sua senha" placeholder="Confirme a sua senha" required>
+                    
+                    <select id="selecione-perfil" class="select-cadastro-empresa">
+                        <option value="">Selecione o tipo de perfil</option>
+                        <option value="adm">Admnistrador</option>
+                        <option value="operario">Operário</option>
+                        <option value="gerente">Gerente</option>
+                    </select>
+                    
+
 
                     <select id="selecione-empresa" class="select-cadastro-empresa">
                         <option value="">Selecione uma empresa</option>
@@ -41,9 +58,14 @@
                         <option value="empresaB">Empresa B</option>
                         <option value="empresaC">Empresa C</option>
                     </select>
-                </form>
-                <div class="paragrafo" id="div_msg"></div>
-                <button onclick="cadastrar()" class="btn btn_coluna2">CRIAR CONTA</button>
+                    
+                </div>
+                
+                
+            </form>
+            <div class="paragrafo" id="div_msg"></div>
+            <button onclick="cadastrar()" class="btn btn_coluna2">CRIAR CONTA</button>
+            <!-- <a href="#" class="ancora">Clique aqui para cadastrar a sua empresa!</a> -->
             </section>
         </section>
     </main>
