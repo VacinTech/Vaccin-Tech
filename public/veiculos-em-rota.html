@@ -92,7 +92,7 @@
     // let idEmpresa = sessionStorage.ID_EMPRESA;
     let idEmpresa = 1;
 
-    fetch(`/rotas/buscarRotasPorEmpresa/${idEmpresa}`)
+    fetch(`/viagem/buscarRotasPorEmpresa/${idEmpresa}`)
       .then(function (resposta) {
         if (resposta.ok) {
           if (resposta.status == 204) {

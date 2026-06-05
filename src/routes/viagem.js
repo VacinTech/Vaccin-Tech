@@ -1,14 +1,14 @@
 var express = require("express");
 var router = express.Router();
 
-var rotasController = require("../controllers/rotasController");
+var viagemController = require("../controllers/viagemController");
 
 router.get("/buscarRotasPorEmpresa/:empresaId", function (req, res) {
-  rotasController.buscarRotasPorEmpresa(req, res);
+  viagemController.buscarRotasPorEmpresa(req, res);
 });
 
 router.post("/cadastrar", function (req, res) {
-  rotasController.cadastrar(req, res);
+  viagemController.cadastrar(req, res);
 })
 
 

@@ -1,46 +1,50 @@
 var viagemModel = require("../models/viagemModel");
 
-function listar(req, res) {
+function buscarRotasPorEmpresa(req, res) {
+  var empresaId = req.params.empresaId;
 
-    const limite_linhas = 7;
-
-    var idAquario = req.params.idAquario;
-
-    console.log(`Recuperando as ultimas ${limite_linhas} viagems`);
-
-    viagemModel.listar(idAquario, limite_linhas).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas viagems.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
+  viagemModel.buscarRotasPorEmpresa(empresaId).then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os rotass: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
 }
+
 
 
 function cadastrar(req, res) {
+  var descricao = req.body.descricao;
+  var idUsuario = req.body.idUsuario;
+
+  if (descricao == undefined) {
+    res.status(400).send("descricao está undefined!");
+  } else if (idUsuario == undefined) {
+    res.status(400).send("idUsuario está undefined!");
+  } else {
 
 
-    console.log(`Recuperando viagems em tempo real`);
-
-    viagemModel.cadastrar().then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
+    viagemModel.cadastrar(descricao, idUsuario)
+      .then((resultado) => {
+        res.status(201).json(resultado);
+      }
+      ).catch((erro) => {
         console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas viagems.", erro.sqlMessage);
+        console.log(
+          "\nHouve um erro ao realizar o cadastro! Erro: ",
+          erro.sqlMessage
+        );
         res.status(500).json(erro.sqlMessage);
-    });
+      });
+  }
 }
 
 module.exports = {
-    listar,
-    cadastrar
+  buscarRotasPorEmpresa,
+  cadastrar
 }
