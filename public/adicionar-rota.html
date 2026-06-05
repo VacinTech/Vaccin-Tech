@@ -65,3 +65,76 @@
   </main>
 </body>
 </html>
+<script>
+  function cadastrarCarga() {
+    let vacinaVar = selecione_vacina.value;
+    let veiculoVar = selecione_veiculo.value;
+    let qtdVacinaVar = ipt_qtd_vacina.value;
+    let origemVar = ipt_origem.value;
+    let destinoVar = ipt_destino.value;
+
+    if (vacinaVar == '' || veiculoVar == '' || qtdVacinaVar == '' || origemVar == '' || destinoVar == '') {
+      alert("Preencha todos os campos para prosseguir!");
+      return;
+    }
+
+    fetch("/viagens/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        vacinaServer: vacinaVar,
+        veiculoServer: veiculoVar,
+        qtdVacinaServer: qtdVacinaVar,
+        origemServer: origemVar,
+        destinoServer: destinoVar
+      })
+    }).then(function (resposta) {
+
+      if (resposta.ok) {
+        alert("Carga cadastrada com sucesso!");
+        selecione_vacina.value = '';
+        selecione_veiculo.value = '';
+        ipt_qtd_vacina.value = '';
+        ipt_origem.value = '';
+        ipt_destino.value = '';
+      } else {
+        alert("Erro ao cadastrar carga. Tente novamente.");
+      }
+    }).catch(function (error) {
+      console.error("Erro na requisição:", error);
+      alert("Erro na comunicação com o servidor. Tente novamente.");
+    });
+  }
+  
+  function carregarVacinas() {
+    fetch("/vacinas/listar")
+      .then(response => response.json())
+      .then(data => {
+        const selectVacina = document.getElementById("selecione-vacina");
+        data.forEach(vacina => {
+          const option = document.createElement("option");
+          option.value = vacina.id;
+          option.textContent = vacina.nome;
+          selectVacina.appendChild(option);
+        });
+      })
+      .catch(error => console.error("Erro ao carregar vacinas:", error));
+  }
+   
+   function carregarVeiculos() {
+    fetch("/transportes/listar")
+      .then(response => response.json())
+      .then(data => {
+        const selectVeiculo = document.getElementById("selecione-veiculo");
+        data.forEach(veiculo => {
+          const option = document.createElement("option");
+          option.value = veiculo.id;
+          option.textContent = veiculo.placa;
+          selectVeiculo.appendChild(option);
+        });
+      })
+      .catch(error => console.error("Erro ao carregar veículos:", error));  
+  }
+</script>
