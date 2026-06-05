@@ -68,7 +68,7 @@
                     sessionStorage.NOME_USUARIO = json.nome;
 
                     setTimeout(function () {
-                        window.location.href = "veiculo-em-rota.html"
+                        window.location.href = "veiculos-em-rota.html"
                     }, 1000); // apenas para exibir o loading
 
                 });
@@ -83,10 +83,8 @@
             }
 
         }).catch(function (erro) {
+            alert("Houve um erro ao tentar realizar o login!");
             console.log(erro);
-        })
-
-        mensagem.innerHTML = msg;
-        return false;
+        });
     }
 </script>
