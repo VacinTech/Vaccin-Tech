@@ -176,10 +176,12 @@
         let emailVar = input_email.value;
         let senhaVar = input_senha.value;
         let confVar = input_confirmar.value;
+        let perfilVar = document.getElementById("selecione-perfil").value;
+        let empresaVar = document.getElementById("selecione-empresa").value;
 
 
         // Verificação de campos em branco
-        if (nomeVar == '' || emailVar == '' || senhaVar == '' || confVar == '') {
+        if (nomeVar == '' || emailVar == '' || senhaVar == '' || confVar == '' || perfilVar == '' || empresaVar == '') {
             div_msg.innerHTML = `<span style="color: red;">Preencha os campos vazios</span>`;
             return false;
         }
@@ -199,6 +201,8 @@
                 nomeServer: nomeVar,
                 emailServer: emailVar,
                 senhaServer: senhaVar,
+                perfilServer: perfilVar,
+                empresaServer: empresaVar
             }),
         })
             .then(function (resposta) {
