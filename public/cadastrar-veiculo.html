@@ -68,7 +68,7 @@
     let placaVar = ipt_placa.value;
     let modeloVar = ipt_modelo.value;
     let tipoRefrigeramentoVar = ipt_tipo_refrigeramento.value;
-    let empresaIdVar = selecione-empresa.value;
+    let empresaIdVar = document.getElementById("selecione-empresa").value;
 
     if (placaVar == '' || modeloVar == '' || tipoRefrigeramentoVar == '' || empresaIdVar == '') {
       alert("Preencha todos os campos para prosseguir!");
@@ -81,10 +81,10 @@
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        placaServer: placaVar,
-        modeloServer: modeloVar,
-        tipoRefrigeramentoServer: tipoRefrigeramentoVar,
-        empresaIdServer: empresaIdVar
+        placa: placaVar,
+        modelo: modeloVar,
+        tipoRefrigeramento: tipoRefrigeramentoVar,
+        empresaId: empresaIdVar
       })
     }).then(function (resposta) {
 
@@ -106,7 +106,7 @@
         if (resposta.ok) {
             resposta.json().then(function (dados) {
                 const selectEmpresa = document.getElementById("selecione-empresa");
-                let options = '<option value="">Selecione uma marca</option>';
+                let options = '<option value="">Selecione uma empresa</option>';
                 for (let i = 0; i < dados.length; i++) {
                     const empresa = dados[i];
                     options += `<option value="${empresa.idEmpresa}">${empresa.razaoSocial}</option>`;
