@@ -1,72 +1,143 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/stylecsscargadash.css">
-    <link rel="icon" href="./icons/vacinado.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./css/stylecsscargadash.css" />
+    <link rel="icon" href="./icons/vacinado.png" />
     <title>Veiculos em rota</title>
-</head>
+  </head>
 
-<body>
-    <main  class="container-principal-veiculos">
-        <div class="nav-vertical ">
-            <h2 style="color: #fff; letter-spacing: 0.15rem;">VACCIN<span style="color: #153963;">TECH</span></h2>
-            <ul>
-                <li><a href="cadastrar-carga.html"><i class="fas fa-solid fa-truck-fast"></i> Adicionar Carga</a> </li>
-                <li><a href="./veiculo-em-rota.html"><i class="fas fa-solid fa-road"></i>Veículos em rota</a></li>
-                <li><a href="./index.html"><i class="fas fa-solid fa-house"></i>Voltar</a></li>
-            </ul>
-        </div>
-        <div class="container-veiculos">
-            <h1 class="texto-veiculos"> VEÍCULOS EM ROTA</h1>
-            <div class="container-caixas-veiculos">
-
-                <div class="caixa-veiculo">
-                    <p class="texto-rota">Minas Gerais ➔ Roraima</p>
-                    <div class="info-caixa">
-                        <p class="texto-graus">30°C</p>
-                        <div class="circulo-id">YGH5432</div>
-                    </div>
-                    <a href="detalhes-veiculos.html" class="link-ver-mais">Ver mais detalhes..</a>
-                </div>
-
-                <div class="caixa-veiculo">
-                    <p class="texto-rota">Rio de Janeiro ➔ Acre</p>
-                    <div class="info-caixa">
-                        <p class="texto-graus">30°C</p>
-                        <div class="circulo-id">YHG7333</div>
-                    </div>
-                    <a href="detalhes-veiculos.html" class="link-ver-mais">Ver mais detalhes..</a>
-                </div>
-
-                <div class="caixa-veiculo">
-                    <p class="texto-rota">São Paulo ➔ Bahia</p>
-                    <div class="info-caixa">
-                        <p class="texto-graus">25°C</p>
-                        <div class="circulo-id">LMJ9888</div>
-                    </div>
-                    <a href="detalhes-veiculos.html" class="link-ver-mais">Ver mais detalhes..</a>
-
-                </div>
-
-                <div class="caixa-veiculo">
-                    <p class="texto-rota">Paraná ➔ Ceará</p>
-                    <div class="info-caixa">
-                        <p class="texto-graus">28°C</p>
-                        <div class="circulo-id">ESD6545</div>
-                    </div>
-                     <a href="detalhes-veiculos.html" class="link-ver-mais">Ver mais detalhes..</a>
-
-                </div>
-
+  <body onload="atualizarFeed()">
+    <main class="container-principal-veiculos">
+      <div class="nav-vertical">
+        <h2 style="color: #fff; letter-spacing: 0.15rem">
+          VACCIN<span style="color: #153963">TECH</span>
+        </h2>
+        <ul>
+          <li>
+            <a href="cadastrar-carga.html"
+              ><i class="fas fa-solid fa-truck-fast"></i> Adicionar Carga</a
+            >
+          </li>
+          <li>
+            <a href="./veiculo-em-rota.html"
+              ><i class="fas fa-solid fa-road"></i>Veículos em rota</a
+            >
+          </li>
+          <li>
+            <a href="./index.html"
+              ><i class="fas fa-solid fa-house"></i>Voltar</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div id="container-veiculos">
+        <h1 class="texto-veiculos">VEÍCULOS EM ROTA</h1>
+        <div class="container-caixas-veiculos">
+          <div class="caixa-veiculo">
+            <p class="texto-rota">Minas Gerais ➔ Roraima</p>
+            <div class="info-caixa">
+              <p class="texto-graus">30°C</p>
+              <div class="circulo-id">YGH5432</div>
             </div>
+            <a href="detalhes-veiculos.html" class="link-ver-mais"
+              >Ver mais detalhes..</a
+            >
+          </div>
 
+          <div class="caixa-veiculo">
+            <p class="texto-rota">Rio de Janeiro ➔ Acre</p>
+            <div class="info-caixa">
+              <p class="texto-graus">30°C</p>
+              <div class="circulo-id">YHG7333</div>
+            </div>
+            <a href="detalhes-veiculos.html" class="link-ver-mais"
+              >Ver mais detalhes..</a
+            >
+          </div>
 
+          <div class="caixa-veiculo">
+            <p class="texto-rota">São Paulo ➔ Bahia</p>
+            <div class="info-caixa">
+              <p class="texto-graus">25°C</p>
+              <div class="circulo-id">LMJ9888</div>
+            </div>
+            <a href="detalhes-veiculos.html" class="link-ver-mais"
+              >Ver mais detalhes..</a
+            >
+          </div>
+
+          <div class="caixa-veiculo">
+            <p class="texto-rota">Paraná ➔ Ceará</p>
+            <div class="info-caixa">
+              <p class="texto-graus">28°C</p>
+              <div class="circulo-id">ESD6545</div>
+            </div>
+            <a href="detalhes-veiculos.html" class="link-ver-mais"
+              >Ver mais detalhes..</a
+            >
+          </div>
         </div>
+      </div>
     </main>
-</body>
-
+  </body>
 </html>
+<script>
+  function atualizarFeed() {
+    let idEmpresa = sessionStorage.ID_EMPRESA;
+
+    fetch(`/rotas/buscarRotasPorEmpresa/${idEmpresa}`)
+      .then(function (resposta) {
+        if (resposta.ok) {
+          if (resposta.status == 204) {
+            let feed = document.querySelector(".container-caixas-veiculos");
+            feed.innerHTML = "Nenhum resultado encontrado.";
+            throw "Nenhum resultado encontrado!";
+          }
+
+          resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+            let feed = document.querySelector(".container-caixas-veiculos");
+            feed.innerHTML = "";
+
+            for (let i = 0; i < resposta.length; i++) {
+              let rota = resposta[i];
+
+              feed.innerHTML += `
+                  <div class="caixa-veiculo">
+                    <p class="texto-rota">
+                      ${rota.origem} ➔ ${rota.destino}
+                    </p>
+                
+                    <div class="info-caixa">
+                      <p class="texto-graus">
+                        ${rota.temperaturaAtual}°C
+                      </p>
+                  
+                      <div class="circulo-id">
+                        ${rota.placa}
+                      </div>
+                    </div>
+                
+                    <a href="detalhes-veiculos.html" class="link-ver-mais">
+                      Ver mais detalhes..
+                    </a>
+                  </div>
+                `;
+            }
+          });
+        } else {
+          throw "Houve um erro na API!";
+        }
+      })
+      .catch(function (erro) {
+        console.error(erro);
+      });
+  }
+</script>

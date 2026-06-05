@@ -1,9 +1,9 @@
-var aquarioModel = require("../models/aquarioModel");
+var rotasModel = require("../models/rotasModel");
 
-function buscarAquariosPorEmpresa(req, res) {
-  var idUsuario = req.params.idUsuario;
+function buscarRotasPorEmpresa(req, res) {
+  var empresaId = req.params.empresaId;
 
-  aquarioModel.buscarAquariosPorEmpresa(idUsuario).then((resultado) => {
+  rotasModel.buscarRotasPorEmpresa(empresaId).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -11,10 +11,11 @@ function buscarAquariosPorEmpresa(req, res) {
     }
   }).catch(function (erro) {
     console.log(erro);
-    console.log("Houve um erro ao buscar os aquarios: ", erro.sqlMessage);
+    console.log("Houve um erro ao buscar os rotass: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
   });
 }
+
 
 
 function cadastrar(req, res) {
@@ -28,7 +29,7 @@ function cadastrar(req, res) {
   } else {
 
 
-    aquarioModel.cadastrar(descricao, idUsuario)
+    rotasModel.cadastrar(descricao, idUsuario)
       .then((resultado) => {
         res.status(201).json(resultado);
       }
@@ -44,6 +45,6 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-  buscarAquariosPorEmpresa,
+  buscarRotasPorEmpresa,
   cadastrar
 }
