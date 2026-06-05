@@ -29,17 +29,17 @@
 
           <div class="campo">
             <label> <i class="fa-solid fa-syringe"></i> Nome da Vacina</label>
-            <input type="text" placeholder="Ex: CoronaVac">
+            <input type="text" id="ipt_nome_vacina" placeholder="Ex: CoronaVac">
           </div>
 
           <div class="campo">
-            <label><i class="fa-solid fa-truck"></i> Fabricante</label>
-            <input type="text" placeholder="Ex: Butantan">
+            <label><i class="fa-solid fa-syringe"></i> Fabricante</label>
+            <input type="text" id="ipt_fabricante" placeholder="Ex: Butantan">
           </div>
 
           <div class="campo">
             <label><i class="fa-solid fa-capsules"></i> Lote</label>
-            <input type="text" placeholder="Ex: 4120Z001">
+            <input type="text" id="ipt_lote" placeholder="Ex: 4120Z001">
           </div>
 
           <div>
@@ -48,17 +48,17 @@
 
             <div class="temperatura">
               <div class="campo">
-                <input type="number" placeholder="Mín">
+                <input type="number" id="ipt_temp_min" placeholder="Mín">
               </div>
 
               <div class="campo">
-                <input type="number" placeholder="Máx">
+                <input type="number" id="ipt_temp_max" placeholder="Máx">
               </div>
 
             </div>
           </div>
 
-          <button class="btn_adicionar">
+          <button class="btn_adicionar" onclick="cadastrarVacina()">
             Adicionar Vacina
           </button>
 
@@ -72,3 +72,48 @@
 </body>
 
 </html>
+
+<script>
+  function cadastrarVacina() {
+    let nomeVacina = ipt_nome_vacina.value;
+    let fabricante = ipt_fabricante.value;
+    let lote = ipt_lote.value;
+    let tempMin = ipt_temp_min.value;
+    let tempMax = ipt_temp_max.value;
+
+    if (nomeVacina == '' || fabricante == '' || lote == '' || tempMin == '' || tempMax == '') {
+      alert("Preencha todos os campos para prosseguir!");
+      return;
+    }
+
+    fetch("/vacinas/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nomeVacinaServer: nomeVacina,
+        fabricanteServer: fabricante,
+        loteServer: lote,
+        tempMinServer: tempMin,
+        tempMaxServer: tempMax
+      })
+    }).then(function (resposta) {
+
+      if (resposta.ok) {
+        alert("Vacina cadastrada com sucesso!");
+        console.log(resposta);
+        setTimeout(function () {
+          window.location.href = "adicionar-rota.html";
+        }, 2000);
+      } else {
+        alert("Houve um erro ao cadastrar a vacina!");
+        console.log(resposta);
+      }
+
+    }).catch(function (erro) {
+      alert("Houve um erro ao tentar cadastrar a vacina!");
+      console.log(erro);
+    });
+  }
+</script>

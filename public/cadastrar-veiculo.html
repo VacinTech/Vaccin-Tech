@@ -29,30 +29,26 @@
 
           <div class="campo">
             <label> <i class="fa-solid fa-circle-info"></i> Placa do veículo</label>
-            <input type="text" placeholder="Ex:">
+            <input type="text" id="ipt_placa" placeholder="Ex: ABC-1234">
           </div>
 
           <div class="campo">
             <label><i class="fa-solid fa-truck"></i> Modelo</label>
-            <input type="text" placeholder="Ex:">
+            <input type="text" id="ipt_modelo" placeholder="Ex: Fiat Ducato">
           </div>
 
           <div class="campo">
             <label><i class="fa-solid fa-capsules"></i> Tipo de refrigeramento</label>
-            <input type="text" placeholder="Ex: ">
+            <input type="text" id="ipt_tipo_refrigeramento" placeholder="Ex: Refrigeração ativa">
           </div>
 
          <div class="campo">
             <label><i class="fa-solid fa-truck"></i> Escolha a empresa</label>
             <select id="selecione-empresa" class="select-cadastro-vacina">
-             <option value="">Selecione uma empresa</option>
-                        <option value="empresaA">Empresa A</option>
-                        <option value="empresaB">Empresa B</option>
-                        <option value="empresaC">Empresa C</option>
             </select>
           </div>
 
-          <button class="btn_adicionar">
+          <button class="btn_adicionar" onclick="cadastrarVeiculo()">
             Adicionar Veiculo
           </button>
 
@@ -66,3 +62,65 @@
 </body>
 
 </html>
+<script>
+  function cadastrarVeiculo() {
+    let placaVar = ipt_placa.value;
+    let modeloVar = ipt_modelo.value;
+    let tipoRefrigeramentoVar = ipt_tipo_refrigeramento.value;
+    let empresaIdVar = selecione-empresa.value;
+
+    if (placaVar == '' || modeloVar == '' || tipoRefrigeramentoVar == '' || empresaIdVar == '') {
+      alert("Preencha todos os campos para prosseguir!");
+      return;
+    }
+
+    fetch("/transportes/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        placaServer: placaVar,
+        modeloServer: modeloVar,
+        tipoRefrigeramentoServer: tipoRefrigeramentoVar,
+        empresaIdServer: empresaIdVar
+      })
+    }).then(function (resposta) {
+
+      if (resposta.ok) {
+        alert("Veículo cadastrado com sucesso!");
+        window.location.href = "adicionar-rota.html";
+      } else {
+        alert("Erro ao cadastrar veículo. Verifique os dados e tente novamente.");
+      }
+    }).catch(function (error) {
+      console.error("Erro na requisição:", error);
+      alert("Ocorreu um erro ao cadastrar o veículo. Por favor, tente novamente mais tarde.");
+    });
+  }
+
+  function carregarEmpresas() {
+    fetch("/empresas/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                const selectEmpresa = document.getElementById("selecione-empresa");
+                json.forEach(empresa => {
+                    const option = document.createElement("option");
+                    option.value = empresa.idEmpresa;
+                    option.text = empresa.nomeFantasia;
+                    selectEmpresa.appendChild(option);
+                });
+            });
+        } else {
+            console.error("Erro ao carregar empresas:", resposta.statusText);
+        }
+    }).catch(function (error) {
+        console.error("Erro na requisição:", error);
+    });
+  }
+</script>
