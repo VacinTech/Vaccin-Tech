@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="./css/stylecsscargadash.css" />
 </head>
 
-<body onload="carregarEmpresas()">
+<body>
   <main class="container-principal-veiculos">
      <div class="nav-vertical">
             <h2 style="color: #fff; letter-spacing: 0.15rem;">VACCIN<span style="color: #153963;">TECH</span></h2>
@@ -45,7 +45,6 @@
          <div class="campo">
             <label><i class="fa-solid fa-truck"></i> Escolha a empresa</label>
             <select id="selecione-empresa" class="select-cadastro-vacina">
-              <option value="">Selecione uma empresa</option>
             </select>
           </div>
 
@@ -68,7 +67,7 @@
     let placaVar = ipt_placa.value;
     let modeloVar = ipt_modelo.value;
     let tipoRefrigeramentoVar = ipt_tipo_refrigeramento.value;
-    let empresaIdVar = document.getElementById("selecione-empresa").value;
+    let empresaIdVar = selecione-empresa.value;
 
     if (placaVar == '' || modeloVar == '' || tipoRefrigeramentoVar == '' || empresaIdVar == '') {
       alert("Preencha todos os campos para prosseguir!");
@@ -81,10 +80,10 @@
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        placa: placaVar,
-        modelo: modeloVar,
-        tipoRefrigeramento: tipoRefrigeramentoVar,
-        empresaId: empresaIdVar
+        placaServer: placaVar,
+        modeloServer: modeloVar,
+        tipoRefrigeramentoServer: tipoRefrigeramentoVar,
+        empresaIdServer: empresaIdVar
       })
     }).then(function (resposta) {
 
@@ -101,17 +100,21 @@
   }
 
   function carregarEmpresas() {
-    fetch("/empresas/listar")
-      .then(function (resposta) {
+    fetch("/empresas/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
         if (resposta.ok) {
-            resposta.json().then(function (dados) {
+            resposta.json().then(json => {
                 const selectEmpresa = document.getElementById("selecione-empresa");
-                let options = '<option value="">Selecione uma empresa</option>';
-                for (let i = 0; i < dados.length; i++) {
-                    const empresa = dados[i];
-                    options += `<option value="${empresa.idEmpresa}">${empresa.razaoSocial}</option>`;
-                }
-                selectEmpresa.innerHTML = options;
+                json.forEach(empresa => {
+                    const option = document.createElement("option");
+                    option.value = empresa.idEmpresa;
+                    option.text = empresa.nomeFantasia;
+                    selectEmpresa.appendChild(option);
+                });
             });
         } else {
             console.error("Erro ao carregar empresas:", resposta.statusText);

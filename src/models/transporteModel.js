@@ -1,22 +1,23 @@
 var database = require("../database/config");
 
-function listar() {
+function buscarAquariosPorEmpresa(empresaId) {
 
-  var instrucaoSql = `SELECT * FROM transporte`;
+  var instrucaoSql = `SELECT * FROM aquario a WHERE fk_empresa = ${empresaId}`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(placa, modelo, tipoRefrigeramento, empresaId) {
+function cadastrar(empresaId, descricao) {
   
-  var instrucaoSql = `INSERT INTO transporte (placa, modelo, tipoRefrigeramento, fkEmpresa) VALUES ('${placa}', '${modelo}', '${tipoRefrigeramento}', ${empresaId})`;
+  var instrucaoSql = `INSERT INTO (descricao, fk_empresa) aquario VALUES (${descricao}, ${empresaId})`;
+
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
 
 module.exports = {
-  listar,
+  buscarAquariosPorEmpresa,
   cadastrar
 }

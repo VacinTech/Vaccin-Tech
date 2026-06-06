@@ -65,13 +65,12 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nomeCompleto;
-                    sessionStorage.PERFIL_USUARIO = json.perfil;
-                    sessionStorage.EMPRESA_USUARIO = json.fkEmpresa;
+                    sessionStorage.NOME_USUARIO = json.nome;
 
                     setTimeout(function () {
                         window.location.href = "veiculos-em-rota.html"
-                    }, 1000);   
+                    }, 1000); // apenas para exibir o loading
+
                 });
 
             } else {
