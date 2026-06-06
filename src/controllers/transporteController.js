@@ -18,17 +18,23 @@ function listar(req, res) {
 
 
 function cadastrar(req, res) {
-  var descricao = req.body.descricao;
-  var idUsuario = req.body.idUsuario;
+  var placa = req.body.placa;
+  var modelo = req.body.modelo;
+  var tipoRefrigeramento = req.body.tipoRefrigeramento;
+  var empresaId = req.body.empresaId;
 
-  if (descricao == undefined) {
-    res.status(400).send("descricao está undefined!");
-  } else if (idUsuario == undefined) {
-    res.status(400).send("idUsuario está undefined!");
+  if (placa == undefined) {
+    res.status(400).send("placa está undefined!");
+  } else if (modelo == undefined) {
+    res.status(400).send("modelo está undefined!");
+  } else if (tipoRefrigeramento == undefined) {
+    res.status(400).send("tipoRefrigeramento está undefined!");
+  } else if (empresaId == undefined) {
+    res.status(400).send("empresaId está undefined!");
   } else {
 
 
-    transporteModel.cadastrar(descricao, idUsuario)
+    transporteModel.cadastrar(placa, modelo, tipoRefrigeramento, empresaId)
       .then((resultado) => {
         res.status(201).json(resultado);
       }

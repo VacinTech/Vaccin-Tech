@@ -10,49 +10,49 @@
   <link rel="stylesheet" href="./css/stylecsscargadash.css" />
 </head>
 
-<body>
+<body onload="carregarVacinas(); carregarVeiculos();">
   <main class="container-principal-veiculos">
-     <div class="nav-vertical">
-            <h2 style="color: #fff; letter-spacing: 0.15rem;">VACCIN<span style="color: #153963;">TECH</span></h2>
-            <ul>
-                <li><a href="adicionar-rota.html"><i class="fas fa-solid fa-truck-fast"></i> Adicionar Rota</a> </li>
-                <li><a href="cadastrar-vacina.html"><i class="fas fa-solid fa-syringe"></i> Cadastrar Vacina</a> </li>
-                <li><a href="cadastrar-veiculo.html"><i class="fas fa-solid fa-car"></i> Cadastrar Veiculo</a> </li>
-                <li><a href="veiculos-em-rota.html"><i class="fas fa-solid fa-road"></i> Veículos em rota</a></li>
-                <li><a href="index.html"><i class="fas fa-solid fa-house"></i>Voltar</a></li>
-            </ul>
-        </div>
+    <div class="nav-vertical">
+      <h2 style="color: #fff; letter-spacing: 0.15rem;">VACCIN<span style="color: #153963;">TECH</span></h2>
+      <ul>
+        <li><a href="adicionar-rota.html"><i class="fas fa-solid fa-truck-fast"></i> Adicionar Rota</a> </li>
+        <li><a href="cadastrar-vacina.html"><i class="fas fa-solid fa-syringe"></i> Cadastrar Vacina</a> </li>
+        <li><a href="cadastrar-veiculo.html"><i class="fas fa-solid fa-car"></i> Cadastrar Veiculo</a> </li>
+        <li><a href="veiculos-em-rota.html"><i class="fas fa-solid fa-road"></i> Veículos em rota</a></li>
+        <li><a href="index.html"><i class="fas fa-solid fa-house"></i>Voltar</a></li>
+      </ul>
+    </div>
     <div class="container-veiculos">
       <h1 class="texto-veiculos"> NOVA ROTA</h1>
       <div class="container_cadastro">
         <div class="form_carga">
 
           <div class="campo">
-            <label> <i class="fa-solid fa-syringe"></i> Nome da Vacina</label>
+            <label> <i class="fa-solid fa-syringe"></i> Vacina:</label>
             <select id="selecione-vacina" class="select-cadastro-vacina">
               <option value="">Selecione uma vacina</option>
             </select>
           </div>
 
           <div class="campo">
-            <label><i class="fa-solid fa-truck"></i> Placa do Veículo</label>
+            <label><i class="fa-solid fa-truck"></i> Veículo:</label>
             <select id="selecione-veiculo" class="select-cadastro-vacina">
               <option value="">Selecione um veículo</option>
             </select>
           </div>
 
           <div class="campo">
-            <label><i class="fa-solid fa-capsules"></i> Quantidade de Vacinas</label>
+            <label><i class="fa-solid fa-capsules"></i> Quantidade de Vacinas:</label>
             <input type="number" id="ipt_qtd_vacina" placeholder="Ex: 500">
           </div>
 
           <div class="campo">
-            <label><i class="fa-solid fa-location-dot"></i> Origem</label>
+            <label><i class="fa-solid fa-location-dot"></i> Origem:</label>
             <input type="text" id="ipt_origem" placeholder="Ex: São Paulo">
           </div>
 
           <div class="campo">
-            <label><i class="fa-solid fa-flag-checkered"></i> Destino</label>
+            <label><i class="fa-solid fa-flag-checkered"></i> Destino:</label>
             <input type="text" id="ipt_destino" placeholder="Ex: Campinas">
           </div>
 
@@ -64,14 +64,15 @@
     </div>
   </main>
 </body>
+
 </html>
 <script>
   function cadastrarCarga() {
-    let vacinaVar = selecione_vacina.value;
-    let veiculoVar = selecione_veiculo.value;
-    let qtdVacinaVar = ipt_qtd_vacina.value;
-    let origemVar = ipt_origem.value;
-    let destinoVar = ipt_destino.value;
+    let vacinaVar = document.getElementById("selecione-vacina").value;
+    let veiculoVar = document.getElementById("selecione-veiculo").value;
+    let qtdVacinaVar = document.getElementById("ipt_qtd_vacina").value;
+    let origemVar = document.getElementById("ipt_origem").value;
+    let destinoVar = document.getElementById("ipt_destino").value;
 
     if (vacinaVar == '' || veiculoVar == '' || qtdVacinaVar == '' || origemVar == '' || destinoVar == '') {
       alert("Preencha todos os campos para prosseguir!");
@@ -84,21 +85,25 @@
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        vacinaServer: vacinaVar,
-        veiculoServer: veiculoVar,
-        qtdVacinaServer: qtdVacinaVar,
-        origemServer: origemVar,
-        destinoServer: destinoVar
+        vacina: vacinaVar,
+        veiculo: veiculoVar,
+        qtdVacina: qtdVacinaVar,
+        origem: origemVar,
+        destino: destinoVar
       })
     }).then(function (resposta) {
 
       if (resposta.ok) {
         alert("Carga cadastrada com sucesso!");
-        selecione_vacina.value = '';
-        selecione_veiculo.value = '';
-        ipt_qtd_vacina.value = '';
-        ipt_origem.value = '';
-        ipt_destino.value = '';
+        document.getElementById("selecione-vacina").value = '';
+        document.getElementById("selecione-veiculo").value = '';
+        document.getElementById("ipt_qtd_vacina").value = '';
+        document.getElementById("ipt_origem").value = '';
+        document.getElementById("ipt_destino").value = '';
+
+        setTimeout(function () {
+          window.location.href = "veiculos-em-rota.html";
+        }, 2000);
       } else {
         alert("Erro ao cadastrar carga. Tente novamente.");
       }
@@ -107,34 +112,47 @@
       alert("Erro na comunicação com o servidor. Tente novamente.");
     });
   }
-  
+
   function carregarVacinas() {
     fetch("/vacinas/listar")
-      .then(response => response.json())
-      .then(data => {
-        const selectVacina = document.getElementById("selecione-vacina");
-        data.forEach(vacina => {
-          const option = document.createElement("option");
-          option.value = vacina.id;
-          option.textContent = vacina.nome;
-          selectVacina.appendChild(option);
-        });
+      .then(function (resposta) {
+        if (resposta.ok) {
+          return resposta.json().then(function (dados) {
+            const selectVacina = document.getElementById("selecione-vacina");
+            let options = '<option value="">Selecione uma vacina</option>';
+            for (let i = 0; i < dados.length; i++) {
+              const vacina = dados[i];
+              options += `<option value="${vacina.idVacina}">${vacina.nome}</option>`;
+            }
+            selectVacina.innerHTML = options;
+          });
+        } else {
+          console.error("Erro ao carregar vacinas:", resposta.statusText);
+        }
       })
-      .catch(error => console.error("Erro ao carregar vacinas:", error));
+
+      .catch(function (error) { console.error("Erro na requisição:", error); });
   }
-   
-   function carregarVeiculos() {
+
+  function carregarVeiculos() {
     fetch("/transportes/listar")
-      .then(response => response.json())
-      .then(data => {
-        const selectVeiculo = document.getElementById("selecione-veiculo");
-        data.forEach(veiculo => {
-          const option = document.createElement("option");
-          option.value = veiculo.id;
-          option.textContent = veiculo.placa;
-          selectVeiculo.appendChild(option);
-        });
+      .then(function (resposta) {
+        if (resposta.ok) {
+          return resposta.json().then(function (dados) {
+            const selectVeiculo = document.getElementById("selecione-veiculo");
+            let options = '<option value="">Selecione um veículo</option>';
+            for (let i = 0; i < dados.length; i++) {
+              const veiculo = dados[i];
+              options += `<option value="${veiculo.idTransporte}">${veiculo.placa} - ${veiculo.modelo}</option>`;
+            }
+            selectVeiculo.innerHTML = options;
+          })
+        } else {
+          console.error("Erro ao carregar veículos: ", resposta.statusText);
+        }
       })
-      .catch(error => console.error("Erro ao carregar veículos:", error));  
+      .catch(function (error) {
+        console.error("Erro ao carregar veículos:", error);
+      });
   }
 </script>
