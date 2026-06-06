@@ -14,18 +14,30 @@ function listar(req, res) {
     });
 }
 function cadastrar(req, res) {
-    var titulo = req.body.titulo;
-    var descricao = req.body.descricao;
-    var idUsuario = req.body.idUsuario;
+    var nome = req.body.nomeVacinaServer;
+    var fabricante = req.body.fabricanteServer;
+    var lote = req.body.loteServer;
+    var tempMin = req.body.tempMinServer;
+    var tempMax = req.body.tempMaxServer;
+    var dataValidade = req.body.dataValidadeServer;
+    var dataFabricacao = req.body.dataFabricacaoServer;
 
-    if (titulo == undefined) {
-        res.status(400).send("O título está indefinido!");
-    } else if (descricao == undefined) {
-        res.status(400).send("A descrição está indefinido!");
-    } else if (idUsuario == undefined) {
-        res.status(403).send("O id do usuário está indefinido!");
+    if (nome == undefined) {
+        res.status(400).send("O nome está indefinido!");
+    } else if (fabricante == undefined) {
+        res.status(400).send("O fabricante está indefinido!");
+    } else if (lote == undefined) {
+        res.status(403).send("O lote está indefinido!");
+    } else if (tempMin == undefined) {
+        res.status(403).send("A temperatura mínima está indefinida!");
+    } else if (tempMax == undefined) {
+        res.status(403).send("A temperatura máxima está indefinida!");
+    } else if (dataValidade == undefined) {
+        res.status(403).send("A data de validade está indefinida!");
+    } else if (dataFabricacao == undefined) {
+        res.status(403).send("A data de fabricação está indefinida!");
     } else {
-        vacinaModel.cadastrar(titulo, descricao, idUsuario)
+        vacinaModel.cadastrar(nome, fabricante, lote, tempMin, tempMax, dataValidade, dataFabricacao)
             .then(
                 function (resultado) {
                     res.json(resultado);
