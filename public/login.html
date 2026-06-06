@@ -1,91 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./icons/vacinado.png">
-    <link rel="stylesheet" href="css/styleCL.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./icons/vacinado.png" />
+    <link rel="stylesheet" href="css/styleCL.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <title>LOGIN VaccinTech</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <main class="container">
-        <section class="conteudo">
-            <section class="primeira_coluna">
-                <a href="index.html">
-                    <i class="fa-solid fa-arrow-left seta-login-cadastro" style="color: white;"></i>
-                </a>
-                    <h1 class="titulo">Olá, amigo!</h1>
-                    <p class="paragrafo paragrafo_coluna1">Digite seus dados pessoais</p>
-                    <p class="paragrafo paragrafo_coluna1">e começe a jornada com a gente!</p>
-                    <button class="btn btn_coluna1 btn_login"><a href="cadastro.html">CRIAR CONTA</a></button>
-            </section>
-            <section class="segunda_coluna">
-                <h1 class="titulo coluna_2">Faça login na VaccinTech</h1>
-                <p class="paragrafo">Use o seu email para registrar-se</p>
-                <form class="formulario">
-                    <input type="email" id="input_email" placeholder="Email:" required>
-                    <input type="password" id="input_senha" placeholder="Senha:" required>
-                </form>
-                <div id="mensagem"></div>
-                <a href="#" class="ancora">Esqueceu sua senha?</a>
-                <button onclick="login()" class="btn btn_coluna2"><a href="#">ENTRAR</a></button>
-            </section>
+      <section class="conteudo">
+        <section class="primeira_coluna">
+          <a href="index.html">
+            <i
+              class="fa-solid fa-arrow-left seta-login-cadastro"
+              style="color: white"
+            ></i>
+          </a>
+          <h1 class="titulo">Olá, amigo!</h1>
+          <p class="paragrafo paragrafo_coluna1">Digite seus dados pessoais</p>
+          <p class="paragrafo paragrafo_coluna1">
+            e começe a jornada com a gente!
+          </p>
+          <button class="btn btn_coluna1 btn_login">
+            <a href="cadastro.html">CRIAR CONTA</a>
+          </button>
         </section>
+        <section class="segunda_coluna">
+          <h1 class="titulo coluna_2">Faça login na VaccinTech</h1>
+          <p class="paragrafo">Use o seu email para registrar-se</p>
+          <form class="formulario">
+            <input
+              type="email"
+              id="input_email"
+              placeholder="Email:"
+              required
+            />
+            <input
+              type="password"
+              id="input_senha"
+              placeholder="Senha:"
+              required
+            />
+          </form>
+          <div id="mensagem"></div>
+          <a href="#" class="ancora">Esqueceu sua senha?</a>
+          <button onclick="login()" class="btn btn_coluna2">
+            <a href="#">ENTRAR</a>
+          </button>
+        </section>
+      </section>
     </main>
-</body>
-
+  </body>
 </html>
 <script>
-    function login() {
-        let emailVar = input_email.value;
-        let senhaVar = input_senha.value;
+  function login() {
+    let emailVar = input_email.value;
+    let senhaVar = input_senha.value;
 
-        if (emailVar == '' || senhaVar == '') {
-            mensagem.innerHTML = "Preencha todos os campos para prosseguir!";
-        }
-
-        fetch("/usuarios/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nomeCompleto;
-                    sessionStorage.PERFIL_USUARIO = json.perfil;
-                    sessionStorage.EMPRESA_USUARIO = json.fkEmpresa;
-
-                    setTimeout(function () {
-                        window.location.href = "veiculos-em-rota.html"
-                    }, 1000);   
-                });
-
-            } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-
-        }).catch(function (erro) {
-            alert("Houve um erro ao tentar realizar o login!");
-            console.log(erro);
-        });
+    if (emailVar == "" || senhaVar == "") {
+      mensagem.innerHTML = "Preencha todos os campos para prosseguir!";
     }
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then((json) => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+            sessionStorage.EMAIL_USUARIO = json.email;
+            sessionStorage.NOME_USUARIO = json.nomeCompleto;
+            sessionStorage.PERFIL_USUARIO = json.perfil;
+            sessionStorage.EMPRESA_USUARIO = json.fkEmpresa;
+
+            setTimeout(function () {
+              window.location.href = "veiculos-em-rota.html";
+            }, 1000);
+          });
+        } else {
+          console.log("Houve um erro ao tentar realizar o login!");
+
+          resposta.text().then((texto) => {
+            console.error(texto);
+          });
+        }
+      })
+      .catch(function (erro) {
+        alert("Houve um erro ao tentar realizar o login!");
+        console.log(erro);
+      });
+  }
 </script>
