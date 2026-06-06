@@ -55,7 +55,7 @@
 </html>
 <script>
   function atualizarFeed() {
-    // let idEmpresa = sessionStorage.ID_EMPRESA;
+    let idEmpresa = sessionStorage.ID_EMPRESA;
     // let idEmpresa = 1;
 
     fetch(`/viagens/buscarRotasPorEmpresa/${sessionStorage.EMPRESA_USUARIO}`)
