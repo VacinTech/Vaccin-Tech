@@ -33,7 +33,6 @@ function tudoDashIndividual(req, res) {
 }
 
 
-
 function cadastrar(req, res) {
   var veiculo = req.body.veiculo;
   var vacina = req.body.vacina;

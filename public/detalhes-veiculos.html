@@ -7,10 +7,11 @@
     <link rel="icon" href="./icons/vacinado.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./css/stylecsscargadash.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Veículo</title>
 </head>
 
-<body>
+<body onload="trazerKpi(), obterDadosGrafico() ">
     <div class="container-principal-veiculos">
         <div class="nav-vertical nav-veiculo">
             <h2 style="color: #fff; letter-spacing: 0.15rem;">VACCIN<span style="color: #153963;">TECH</span></h2>
@@ -23,46 +24,238 @@
             </ul>
         </div>
 
-        <div class="conteudo-dashboard-veiculos">
-            <h1 style="font-size: 40px;">
-                VEÍCULO <span>ACD8777</span>
-            </h1>
-            <div class="legendas">
-                <div class="status ideal">
-                    <h3>IDEAL</h3>
-                    <p> >= 2 || <= 8 </p>
-                </div>
-                <div class="status alerta">
-                    <h3>EM ALERTA</h3>
-                    <p>
-                        < 2 || > 8
-                    </p>
-                </div>
-                <div class="status critico">
-                    <h3>CRÍTICO</h3>
-                    <p>
-                        <= 0 || >= 10
-                    </p>
-                </div>
-            </div>
+      
+      <div class="conteudo-dashboard-veiculos">
+        <h1 style="font-size: 40px">
+          VEÍCULO <span id="placaCarro">ACD8777</span>
+        </h1>
+        <div class="legendas">
+          <div class="status ideal">
+            <h3>IDEAL</h3>
+            <p id="IndicadorIdeal">>2 || <=8</p>
+          </div>
+          <div class="status alerta">
+            <h3>EM ALERTA</h3>
+            <p id="IndicadorAlerta"><=1 || >7</p>
+          </div>
+          <div class="status critico">
+            <h3>CRÍTICO</h3>
+            <p id="IndicadorCritico"><2 || >8</p>
+          </div>
+        </div>
 
             <div class="cards">
-                <div class="card">
-                    <h4>TEMPERATURA ATUAL</h4>
-                </div>
-                <div class="card">
-                    <h4>MÍNIMA</h4>
-                </div>
-                <div class="card">
-                    <h4>MAX</h4>
-                </div>
-                <div class="card">
-                    <h4>STATUS</h4>
-                </div>
-            </div>
-            <div class="grafico"></div>
+          <div class="card">
+            <h4>TEMPERATURA ATUAL</h4>
+            <p id="pTempAtual">0°</p>
+          </div>
+          <div class="card">
+            <h4>MÍNIMA</h4>
+            <p id="pMinHistorica">0°</p>
+          </div>
+          <div class="card">
+            <h4>MAX</h4>
+            <p id="pMaxHistorica">0°</p>
+          </div>
+          <div class="card">
+            <h4>STATUS</h4>
+            <p id="pStatus">OK</p>
+          </div>
+        </div>
+        <div class="grafico">
+          <canvas id="myChartCanvas"></canvas>
         </div>
 
     </div>
 </body>
 </html>
+<script>
+  function trazerKpi() {
+    let idViagem = 3;
+
+    fetch(`/viagens/tudoDashIndividual/${idViagem}`).then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (resposta) {
+          console.log("Dados recebidos: ", JSON.stringify(resposta));
+          let origem = resposta[0].origem;
+          let destino = resposta[0].destino;
+          let placa = resposta[0].placa;
+          let temperaturaMin = Number(resposta[0].temperaturaMin);
+          let temperaturaMax = Number(resposta[0].temperaturaMax);
+          let minAtingido = resposta[0].minAtingido;
+          let maxAtingido = resposta[0].maxAtingido;
+          let temperaturaAtual = resposta[0].temperaturaAtual;
+          let statuss = "OK";
+
+          if (
+            temperaturaAtual == temperaturaMax ||
+            temperaturaAtual == temperaturaMin
+          ) {
+            statuss = "ALERTA";
+          } else if (
+            temperaturaAtual > temperaturaMax ||
+            temperaturaAtual < temperaturaMin
+          ) {
+            statuss = "CRÍTICO";
+          }
+
+          placaCarro.innerHTML = `${placa}`;
+
+          IndicadorIdeal.innerHTML = `> ${temperaturaMin} e < ${temperaturaMax}`;
+          IndicadorAlerta.innerHTML = `= ${temperaturaMin} ou = ${temperaturaMax}`;
+          IndicadorCritico.innerHTML = `< ${temperaturaMin} ou > ${temperaturaMax}`;
+
+          pTempAtual.innerHTML = `${temperaturaAtual}°`;
+          pMinHistorica.innerHTML = `${minAtingido}°`;
+          pMaxHistorica.innerHTML = `${maxAtingido}°`;
+          pStatus.innerHTML = `${statuss}`;
+        });
+      }
+    });
+  }
+
+  function obterDadosGrafico() {
+    // if (proximaAtualizacao != undefined) {
+    //   clearTimeout(proximaAtualizacao);
+    // }
+
+    let idSensor = 1;
+    fetch(`/viagens/buscarUltimasTemp/${idSensor}`, { cache: "no-store" })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+
+            plotarGrafico(resposta, idSensor);
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados p/ gráfico: ${error.message}`,
+        );
+      });
+  }
+
+  // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+  // Configura o gráfico (cores, tipo, etc), materializa-o na página e,
+  // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+  function plotarGrafico(resposta, idSensor) {
+    console.log("iniciando plotagem do gráfico...");
+
+    // Criando estrutura para plotar gráfico - labels
+    let labels = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dados = {
+      labels: labels,
+      datasets: [
+        {
+          label: "Temperatura",
+          data: [],
+          fill: false,
+          borderColor: "purple",
+          tension: 0.1,
+        },
+      ],
+    };
+
+    console.log("----------------------------------------------");
+    console.log(
+      'Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":',
+    );
+    console.log(resposta);
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (let i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      labels.push(registro.hora);
+      dados.datasets[0].data.push(registro.temperatura);
+    }
+
+    console.log("----------------------------------------------");
+    console.log("O gráfico será plotado com os respectivos valores:");
+    console.log("Labels:");
+    console.log(labels);
+    console.log("Dados:");
+    console.log(dados.datasets);
+    console.log("----------------------------------------------");
+
+    // Criando estrutura para plotar gráfico - config
+    const config = {
+      type: "line",
+      data: dados,
+    };
+
+    // Adicionando gráfico criado em div na tela
+    let myChart = new Chart(document.getElementById("myChartCanvas"), config);
+
+    setTimeout(() => atualizarGrafico(idSensor, dados, myChart), 2000);
+  }
+
+  // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+  // buscando a última medida inserida em tabela contendo as capturas,
+
+  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+  //     Para ajustar o "select", ajuste o comando sql em src/models
+//   function atualizarGrafico(idSensor, dados, myChart) {
+//     fetch(`/medidas/tempo-real/${idSensor}`, { cache: "no-store" })
+//       .then(function (response) {
+//         if (response.ok) {
+//           response.json().then(function (novoRegistro) {
+//             obterdados(idSensor);
+//             // alertar(novoRegistro, idAquario);
+//             console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+//             console.log(`Dados atuais do gráfico:`);
+//             console.log(dados);
+
+        
+
+//             if (
+//               novoRegistro[0].momento_grafico ==
+//               dados.labels[dados.labels.length - 1]
+//             ) {
+//               console.log(
+//                 "---------------------------------------------------------------",
+//               );
+//               console.log(
+//                 "Como não há dados novos para captura, o gráfico não atualizará.",
+//               );
+            
+              
+//             } else {
+//               // tirando e colocando valores no gráfico
+//               dados.labels.shift(); // apagar o primeiro
+//               dados.labels.push(novoRegistro[0].hora); // incluir um novo momento
+
+//               dados.datasets[0].data.shift(); // apagar o primeiro de temperatura
+//               dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+//               myChart.update();
+//             }
+
+//                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+//             // proximaAtualizacao = setTimeout(
+//             //   () => atualizarGrafico(idAquario, dados, myChart),
+//             //   2000,
+//             // );
+//           });
+//         } else {
+//           console.error("Nenhum dado encontrado ou erro na API");
+//           // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+//           //   proximaAtualizacao = setTimeout(
+//           //     () => atualizarGrafico(idAquario, dados, myChart),
+//           //     2000,
+//           //   );
+//         }
+//       })
+//       .catch(function (error) {
+//         console.error(
+//           `Erro na obtenção dos dados p/ gráfico: ${error.message}`,
+//         );
+//       });
+//   }
+</script>
