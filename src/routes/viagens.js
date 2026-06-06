@@ -19,6 +19,9 @@ router.get("/buscarUltimasTemp/:idSensor", function (req, res) {
     viagemController.buscarUltimasTemp(req, res);
 });
 
+router.get("/buscarTempEmTempoReal/:idSensor", function (req, res) {
+    viagemController.buscarTempEmTempoReal(req, res);
+});
 
 
 module.exports = router;

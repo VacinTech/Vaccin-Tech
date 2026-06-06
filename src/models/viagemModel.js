@@ -36,6 +36,22 @@ function  buscarUltimasTemp(idSensor, limite_linhas) {
 }
 
 
+function buscarTempEmTempoReal(idSensor) {
+
+    var instrucaoSql = `select 
+                        temperatura,
+                        date_format(dataHora,'%H:%i:%s') as hora,
+                        fkSensor
+                    from Monitoramento
+                    where fkSensor = ${idSensor}
+                    order by idMonitoramento desc
+                    limit 1;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 function cadastrar(veiculo, vacina, qtdVacina, origem, destino) {
   
   var instrucaoSql = `INSERT INTO viagem (fkTransporte, fkVacina, qtdVacina, origem, destino) VALUES (${veiculo}, ${vacina}, ${qtdVacina}, '${origem}', '${destino}')`;
@@ -49,5 +65,6 @@ module.exports = {
   buscarRotasPorEmpresa,
   tudoDashIndividual,
   buscarUltimasTemp,
+  buscarTempEmTempoReal,
   cadastrar,
 }

@@ -90,47 +90,159 @@ CREATE TABLE alerta (
         REFERENCES Monitoramento(idMonitoramento)
 );
 
-INSERT INTO empresa (razaoSocial, cnpj, telefone) VALUES
-('BioVac Transportes Farmacêuticos LTDA', '12345678000101', '1134567890'),
-('ImunoLog Logística de Vacinas S.A.', '23456789000102', '1145678901'),
-('ColdChain Saúde LTDA', '34567890000103', '1156789012'),
-('VacinaSeg Transporte Especializado LTDA', '45678901000104', '1167890123'),
-('PharmaFrio Distribuição de Imunobiológicos LTDA', '56789012000105', '1178901234');
+insert into empresa (razaoSocial, cnpj, telefone) values
+('Pfizer Brasil Ltda', '12345678000101', '1130011001'),
+('BioNTech Logistica S.A.', '12345678000102', '1130011002'),
+('Vacina Express Transportes', '12345678000103', '1130011003'),
+('HealthCargo Distribuicao', '12345678000104', '1130011004'),
+('ImunoTech Solutions', '12345678000105', '1130011005');
 
--- select da ultima temperatura
--- É o mesmo para a KPI de faixa atual
-select temperatura 
-	from monitoramento
-    where fkSensor = '${fkSensor}'
-    order by idMonitoramento desc;
-    
--- view de min e max
-create view vwMinEMaxSensor as
-select fkSensor, min(temperatura) as tempMin, max(temperatura) as tempMax
-	from monitoramento
-		group by fkSensor;
-    
-select * from vwMinEMaxSensor 
-	where fkSensor = '${fkSensor}';
+insert into usuario values
+(default, 'Tito', 'tito@gmail.com', '12345678', 'Admin', '12212212212', 1);
 
 
--- VIEW que traz tudo 
-create view vwMonitoramentoCompleto as
-select
-    e.razaoSocial,
-    t.placa,
-    s.idSensor,
-    m.temperatura,
-    m.dataHora
-from Monitoramento m
-join Sensor s on m.fkSensor = s.idSensor
-join Transporte t on s.fkTransporte = t.idTransporte
-join Empresa e on t.fkEmpresa = e.idEmpresa;
+    
+    
 
--- Tem que usar a VIEW assim para puxar o relatorio completo de apenas um sensor
-select * 
-	from vwMonitoramentoCompleto
-	where idSensor = '${idSensor}';
-    
-    
+create view vwGeralRotas as 
+	select 
+    tr.fkEmpresa,
+    vi.idViagem, vi.origem, vi.destino,
+	tr.placa,
+    v.temperaturaMin,
+    v.temperaturaMax,
+	(
+    select m.temperatura 
+	from Monitoramento m 
+    join Sensor s on m.fkSensor = s.idSensor
+    where s.fkTransporte = tr.idTransporte
+	order by m.idMonitoramento desc
+	limit 1
+    ) as temperaturaAtual
+		from viagem vi
+        join transporte tr on vi.fkTransporte = tr.idTransporte
+        join vacina v on vi.fkVacina = v.idVacina
+        where vi.statusViagem = 'Trânsito';
+            
+select * from vwGeralRotas
+	 where fkEmpresa = 1; -- aqui coloca ${idEmpresa};
+     
+
+create view vwTudoDashIndividual as
+	select 
+		vi.idViagem, vi.origem, vi.destino,
+		tr.placa,
+		v.temperaturaMin,
+		v.temperaturaMax,
+		ss.minAtingido,
+		ss.maxAtingido,
+		(
+			select m.temperatura 
+			from Monitoramento m 
+			join Sensor s on m.fkSensor = s.idSensor
+			where s.fkTransporte = tr.idTransporte
+			order by m.idMonitoramento desc
+			limit 1
+		) as temperaturaAtual
+			from viagem vi
+			join transporte tr on vi.fkTransporte = tr.idTransporte
+			join vacina v on vi.fkVacina = v.idVacina
+            left join (
+            select 
+				s.fkTransporte,
+                min(m.temperatura) as minAtingido,
+                max(m.temperatura) as maxAtingido
+                from Sensor s 
+                join Monitoramento m on m.fkSensor = s.idSensor
+                group by s.fkTransporte
+            ) as ss on ss.fkTransporte = tr.idTransporte
+			where vi.statusViagem = 'Trânsito';
+
+select * from vwTudoDashIndividual
+	 where idViagem = 1; -- aqui coloca ${idEmpresa};
+
+
+select temperatura	
+	from monitoramento where fkSensor = 1;
+-- VACINAS
+INSERT INTO Vacina (nome, fabricante, lote) VALUES
+('Comirnaty', 'Pfizer', 'PF2026001'),
+('Spikevax', 'Moderna', 'MD2026001'),
+('Vaxzevria', 'AstraZeneca', 'AZ2026001'),
+('CoronaVac', 'Sinovac', 'SV2026001');
+
+-- TRANSPORTES DA EMPRESA 1
+INSERT INTO Transporte
+(placa, modelo, tipoRefrigeramento, fkEmpresa)
+VALUES
+('ABC1A11', 'Mercedes Accelo', 'Baú Refrigerado', 1),
+('DEF2B22', 'Volkswagen Delivery', 'Baú Refrigerado', 1),
+('GHI3C33', 'Iveco Daily', 'Baú Refrigerado', 1),
+('JKL4D44', 'Mercedes Sprinter', 'Baú Refrigerado', 1);
+
+-- SENSORES (1 SENSOR POR TRANSPORTE)
+INSERT INTO Sensor
+(modelo, dataInstalacao, fkTransporte)
+VALUES
+('LM35', '2026-05-01', 1),
+('LM35', '2026-05-02', 2),
+('LM35', '2026-05-03', 3),
+('LM35', '2026-05-04', 4);
+
+-- VIAGENS EM TRÂNSITO
+INSERT INTO Viagem
+(
+    fkVacina,
+    fkTransporte,
+    origem,
+    destino,
+    qtdVacina,
+    statusViagem
+)
+VALUES
+(1, 1, 'São Paulo', 'Rio de Janeiro', 5000, 'Trânsito'),
+(2, 2, 'Campinas', 'Belo Horizonte', 3200, 'Trânsito'),
+(3, 3, 'Curitiba', 'Florianópolis', 4100, 'Trânsito'),
+(4, 4, 'São Paulo', 'Brasília', 2800, 'Trânsito');
+
+
+-- HISTÓRICO DE MONITORAMENTO
+INSERT INTO Monitoramento (temperatura, fkSensor) VALUES
+(5.1, 1),
+(5.3, 1),
+(5.4, 1),
+
+(6.0, 2),
+(6.1, 2),
+(6.2, 2),
+
+(4.6, 3),
+(4.7, 3),
+(4.8, 3),
+
+(6.8, 4),
+(6.9, 4),
+(7.1, 4);
+
+insert into Monitoramento (temperatura, fkSensor) values
+(8.1, 1);
+
+insert into Monitoramento (temperatura, fkSensor) values
+(8.0, 4);
+
+insert into Monitoramento (temperatura, fkSensor) values
+(4.5, 3);
+insert into Monitoramento (temperatura, fkSensor) values
+(4.6, 3);
+
+
+-- ALERTAS DE EXEMPLO
+INSERT INTO Alerta
+(idAlerta, fkMonitoramento, tipoAlerta)
+VALUES
+(1, 3, 'Temperatura Alta'),
+(2, 6, 'Temperatura Alta');
+
 select * from usuario;
+
+ SELECT idUsuario, nomeCompleto, email, perfil, fkEmpresa FROM usuario WHERE email = 'tito@gmail.com' AND senha = '12345678'
