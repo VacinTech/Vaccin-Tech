@@ -1,7 +1,6 @@
 CREATE DATABASE VaccinTech;
 USE VaccinTech;
 
-
 CREATE TABLE empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     razaoSocial VARCHAR(100),
@@ -16,7 +15,6 @@ CREATE TABLE usuario (
     email VARCHAR(80) UNIQUE,
     senha VARCHAR(50),
     perfil VARCHAR(20),
-    cpf CHAR(11) UNIQUE,
     dtCadastro datetime default current_timestamp,
     fkEmpresa INT not null,
     CONSTRAINT chkPerfil CHECK (perfil IN ('Admin', 'Gerente', 'Operário')),
