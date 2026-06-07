@@ -23,5 +23,8 @@ router.get("/buscarTempEmTempoReal/:idSensor", function (req, res) {
     viagemController.buscarTempEmTempoReal(req, res);
 });
 
+router.put("/concluirRota/:idViagem", function (req, res) {
+    viagemController.concluirRota(req, res);
+});
 
 module.exports = router;

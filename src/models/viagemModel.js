@@ -3,7 +3,6 @@ var database = require("../database/config");
 function  buscarRotasPorEmpresa(empresaId) {
 
 
-  
   var instrucaoSql = `select * from vwGeralRotas
 	 where fkEmpresa = ${empresaId};`;
 
@@ -18,6 +17,17 @@ function  tudoDashIndividual(idViagem) {
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
+}
+
+
+function concluirRota(idViagem) {
+    var instrucaoSql = `
+        update viagem
+        set statusViagem = 'Concluída'
+        where idViagem = ${idViagem};
+    `;
+
+    return database.executar(instrucaoSql);
 }
 
 function  buscarUltimasTemp(idSensor, limite_linhas) {
@@ -66,5 +76,6 @@ module.exports = {
   tudoDashIndividual,
   buscarUltimasTemp,
   buscarTempEmTempoReal,
+  concluirRota,
   cadastrar,
 }

@@ -110,10 +110,28 @@ function buscarTempEmTempoReal(req, res) {
     });
 }
 
+
+function concluirRota(req, res) {
+
+    var idViagem = req.params.idViagem;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    viagemModel.concluirRota(idViagem).then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro .", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
 module.exports = {
   buscarRotasPorEmpresa,
   tudoDashIndividual,
   buscarUltimasTemp,
   buscarTempEmTempoReal,
+  concluirRota,
   cadastrar
 }
