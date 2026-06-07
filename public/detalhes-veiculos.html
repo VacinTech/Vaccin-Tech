@@ -1,108 +1,94 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="./icons/vacinado.png" />
-    <link rel="stylesheet" href="./css/stylecsscargadash.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    />
-    <link rel="stylesheet" href="./css/stylecsscargadash.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
 
-  <body onload="(trazerKpi(), obterDadosGrafico())">
-    <div class="container-principal-veiculos">
-      <div class="nav-vertical nav-veiculo">
-        <h2 style="color: #fff; letter-spacing: 0.15rem">
-          VACCIN<span style="color: #153963">TECH</span>
-        </h2>
-        <ul>
-          <li>
-            <a href="adicionar-rota.html"
-              ><i class="fas fa-solid fa-truck-fast"></i> Adicionar Rota</a
-            >
-          </li>
-          <li>
-            <a href="cadastrar-vacina.html"
-              ><i class="fas fa-solid fa-syringe"></i> Cadastrar Vacina</a
-            >
-          </li>
-          <li>
-            <a href="cadastrar-veiculo.html"
-              ><i class="fas fa-solid fa-car"></i> Cadastrar Veículo</a
-            >
-          </li>
-          <li>
-            <a href="veiculos-em-rota.html"
-              ><i class="fas fa-solid fa-road"></i> Veículos em rota</a
-            >
-          </li>
-          <li>
-            <a href="bobia.html"
-              ><i class="fa-solid fa-robot"></i> Solicitar IAssistente</a
-            >
-          </li>
-          <li>
-            <a href="index.html"><i class="fas fa-solid fa-house"></i>Voltar</a>
-          </li>
-        </ul>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./icons/vacinado.png">
+  <link rel="stylesheet" href="./css/stylecsscargadash.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="./css/stylecsscargadash.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="(trazerKpi(), obterDadosGrafico())">
+  <div class="container-principal-veiculos">
+    <div class="nav-vertical nav-veiculo">
+      <h2 style="color: #fff; letter-spacing: 0.15rem">
+        VACCIN<span style="color: #153963">TECH</span>
+      </h2>
+      <ul>
+        <li>
+          <a href="adicionar-rota.html"><i class="fas fa-solid fa-truck-fast"></i> Adicionar Rota</a>
+        </li>
+        <li>
+          <a href="cadastrar-vacina.html"><i class="fas fa-solid fa-syringe"></i> Cadastrar Vacina</a>
+        </li>
+        <li>
+          <a href="cadastrar-veiculo.html"><i class="fas fa-solid fa-car"></i> Cadastrar Veiculo</a>
+        </li>
+        <li>
+          <a href="veiculos-em-rota.html"><i class="fas fa-solid fa-road"></i> Veículos em rota</a>
+        </li>
+        <li>
+          <a href="index.html"><i class="fas fa-solid fa-house"></i>Voltar</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="conteudo-dashboard-veiculos">
+      <h1 style="font-size: 40px">
+        VEÍCULO <span id="placaCarro">ACD8777</span>
+      </h1>
+      <div class="legendas">
+        <div class="status ideal">
+          <h3>IDEAL</h3>
+          <p id="IndicadorIdeal">>2 || =8</p>
+        </div>
+        <div class="status alerta">
+          <h3>EM ALERTA</h3>
+          <p id="IndicadorAlerta">=1 || >7</p>
+        </div>
+        <div class="status critico">
+          <h3>CRÍTICO</h3>
+          <p id="IndicadorCritico">
+            <2 ||>8
+          </p>
+        </div>
       </div>
 
-      <div class="conteudo-dashboard-veiculos">
-        <div id="div_att"></div>
-        <h1 style="font-size: 40px">
-          VEÍCULO <span id="placaCarro">ACD8777</span>
-        </h1>
-        <div class="legendas">
-          <div class="status ideal">
-            <h3>IDEAL</h3>
-            <p id="IndicadorIdeal">>2 || =8</p>
-          </div>
-          <div class="status alerta">
-            <h3>EM ALERTA</h3>
-            <p id="IndicadorAlerta">=1 || >7</p>
-          </div>
-          <div class="status critico">
-            <h3>CRÍTICO</h3>
-            <p id="IndicadorCritico"><2 ||>8</p>
-          </div>
+      <div class="cards">
+        <div class="card">
+          <h4>TEMP ATUAL <i class="fa-solid fa-temperature-quarter"></i> </h4>
+          <p id="pTempAtual">0°</p>
         </div>
-
-        <div class="cards">
-          <div class="card">
-            <h4>TEMP ATUAL <i class="fa-solid fa-temperature-quarter"></i></h4>
-            <p id="pTempAtual">0°</p>
-          </div>
-          <div class="card">
-            <h4>MÍNIMA <i class="fa-solid fa-temperature-arrow-down"></i></h4>
-            <p id="pMinHistorica">0°</p>
-          </div>
-          <div class="card">
-            <h4>MAX <i class="fa-solid fa-temperature-arrow-up"></i></h4>
-            <p id="pMaxHistorica">0°</p>
-          </div>
-          <div class="card">
-            <h4>STATUS <i class="fa-solid fa-circle-check"></i></h4>
-            <p id="pStatus">OK</p>
-          </div>
+        <div class="card">
+          <h4>MÍNIMA <i class="fa-solid fa-temperature-arrow-down"></i> </h4>
+          <p id="pMinHistorica">0°</p>
         </div>
-        <div class="grafico">
-          <canvas id="myChartCanvas"></canvas>
+        <div class="card">
+          <h4>MAX <i class="fa-solid fa-temperature-arrow-up"></i></h4>
+          <p id="pMaxHistorica">0°</p>
         </div>
+        <div class="card">
+          <h4>STATUS <i class="fa-solid fa-circle-check"></i></h4>
+          <p id="pStatus">OK</p>
+        </div>
+      </div>
+      <div class="grafico">
+        <canvas id="myChartCanvas"></canvas>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
 <script>
   let proximaAtualizacao;
 
-  let idViagem = sessionStorage.ID_VIAGEM;
-  let idSensor = sessionStorage.ID_SENSOR;
-
   function trazerKpi() {
+    let idViagem = 3;
+
     fetch(`/viagens/tudoDashIndividual/${idViagem}`).then(function (resposta) {
       if (resposta.ok) {
         resposta.json().then(function (resposta) {
@@ -116,20 +102,17 @@
           let maxAtingido = resposta[0].maxAtingido;
           let temperaturaAtual = resposta[0].temperaturaAtual;
           let statuss = "OK";
-          div_att.innerHTML = "";
 
           if (
             temperaturaAtual == temperaturaMax ||
             temperaturaAtual == temperaturaMin
           ) {
             statuss = "ALERTA";
-            div_att.innerHTML = `<b class="bAtt" style="background-color: yellow; color: black" >ALERTA</b>`;
           } else if (
             temperaturaAtual > temperaturaMax ||
             temperaturaAtual < temperaturaMin
           ) {
             statuss = "CRÍTICO";
-            div_att.innerHTML = `<b class="bAtt" style="background-color: red; color: black" >CRÍTICO</b>`;
           }
 
           placaCarro.innerHTML = `${placa}`;
@@ -152,6 +135,7 @@
       clearTimeout(proximaAtualizacao);
     }
 
+    let idSensor = 1;
     fetch(`/viagens/buscarUltimasTemp/${idSensor}`, { cache: "no-store" })
       .then(function (response) {
         if (response.ok) {
@@ -262,10 +246,10 @@
             // }
 
             // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => {
-              atualizarGrafico(idSensor, dados, myChart);
-              trazerKpi();
-            }, 2000);
+            proximaAtualizacao = setTimeout(
+              () => atualizarGrafico(idSensor, dados, myChart),
+              2000,
+            );
           });
         } else {
           console.error("Nenhum dado encontrado ou erro na API");

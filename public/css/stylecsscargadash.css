@@ -30,7 +30,7 @@
 }
 
 .container-principal-veiculos .nav-vertical ul li{
-    padding: 45px;
+    padding: 40px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 
@@ -368,10 +368,30 @@
    font-weight:bold;
    color: black;
 }
+.vermais-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.btn-concluir {
 
+    display: block;
+    text-align: center;
+    background-color: #5b6ac2;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
 
+    
+}
 
-
+.btn-concluir:hover {
+    opacity: 0.9;
+}
 .bAtt{
     display: flex;
     justify-content: center;
