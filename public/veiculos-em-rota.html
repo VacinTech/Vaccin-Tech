@@ -131,6 +131,7 @@
                   </div>
                 `;
             }
+            setTimeout(atualizarFeed, 2000);
           });
         } else {
           throw "Houve um erro na API!";
@@ -138,6 +139,7 @@
       })
       .catch(function (erro) {
         console.error(erro);
+        setTimeout(atualizarFeed, 2000);
       });
   }
 
