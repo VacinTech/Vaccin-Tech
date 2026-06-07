@@ -105,7 +105,8 @@ insert into usuario values
     
 
 create view vwGeralRotas as 
-	select 
+	select
+    s.idSensor,
     tr.fkEmpresa,
     vi.idViagem, vi.origem, vi.destino,
 	tr.placa,
@@ -122,7 +123,9 @@ create view vwGeralRotas as
 		from viagem vi
         join transporte tr on vi.fkTransporte = tr.idTransporte
         join vacina v on vi.fkVacina = v.idVacina
+        join sensor s on s.fkTransporte = tr.idTransporte
         where vi.statusViagem = 'Trânsito';
+            
             
 select * from vwGeralRotas
 	 where fkEmpresa = 1; -- aqui coloca ${idEmpresa};

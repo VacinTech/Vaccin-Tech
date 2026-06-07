@@ -40,7 +40,10 @@
             >
           </li>
           <li>
-            <a href="bobia.html"><i class="fas fa-solid fa-robot"></i> Solicitar IAssistente</a></li>
+            <a href="bobia.html"
+              ><i class="fas fa-solid fa-robot"></i> Solicitar IAssistente</a
+            >
+          </li>
           <li>
             <a href="index.html"><i class="fas fa-solid fa-house"></i>Voltar</a>
           </li>
@@ -56,6 +59,11 @@
   </body>
 </html>
 <script>
+  function abrirDetalhes(idViagem, idSensor) {
+    sessionStorage.ID_VIAGEM = idViagem;
+    sessionStorage.ID_SENSOR = idSensor;
+  }
+
   function atualizarFeed() {
     let idEmpresa = sessionStorage.ID_EMPRESA;
     // let idEmpresa = 1;
@@ -107,7 +115,11 @@
                       </div>
                     </div>
                 
-                    <a href="detalhes-veiculos.html" class="link-ver-mais">
+                    <a
+                      href="detalhes-veiculos.html"
+                      class="link-ver-mais"
+                      onclick="abrirDetalhes(${rota.idViagem}, ${rota.idSensor})"
+                    >
                       Ver mais detalhes..
                     </a>
                   </div>
