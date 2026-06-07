@@ -122,6 +122,12 @@
                     >
                       Ver mais detalhes..
                     </a>
+                    <button
+                      class="btn-concluir"
+                      onclick="concluirRota(${rota.idViagem})"
+                    >
+                      Concluir rota
+                    </button>
                   </div>
                 `;
             }
@@ -131,6 +137,23 @@
         }
       })
       .catch(function (erro) {
+        console.error(erro);
+      });
+  }
+
+  function concluirRota(idViagem) {
+    fetch(`/viagens/concluirRota/${idViagem}`, {
+      method: "PUT",
+    })
+      .then((resposta) => {
+        if (resposta.ok) {
+          alert("Rota concluída com sucesso!");
+          atualizarFeed();
+        } else {
+          alert("Erro ao concluir rota.");
+        }
+      })
+      .catch((erro) => {
         console.error(erro);
       });
   }
