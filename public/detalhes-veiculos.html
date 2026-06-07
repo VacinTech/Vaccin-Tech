@@ -52,6 +52,7 @@
       </div>
 
       <div class="conteudo-dashboard-veiculos">
+        <div id="div_att"></div>
         <h1 style="font-size: 40px">
           VEÍCULO <span id="placaCarro">ACD8777</span>
         </h1>
@@ -115,17 +116,20 @@
           let maxAtingido = resposta[0].maxAtingido;
           let temperaturaAtual = resposta[0].temperaturaAtual;
           let statuss = "OK";
+          div_att.innerHTML = "";
 
           if (
             temperaturaAtual == temperaturaMax ||
             temperaturaAtual == temperaturaMin
           ) {
             statuss = "ALERTA";
+            div_att.innerHTML = `<b class="bAtt" style="background-color: yellow; color: black" >ALERTA</b>`;
           } else if (
             temperaturaAtual > temperaturaMax ||
             temperaturaAtual < temperaturaMin
           ) {
             statuss = "CRÍTICO";
+            div_att.innerHTML = `<b class="bAtt" style="background-color: red; color: black" >CRÍTICO</b>`;
           }
 
           placaCarro.innerHTML = `${placa}`;
