@@ -21,6 +21,7 @@ function cadastrar(req, res) {
     var tempMax = req.body.tempMaxServer;
     var dataValidade = req.body.dataValidadeServer;
     var dataFabricacao = req.body.dataFabricacaoServer;
+    var idUsuarioVar = req.body.userId;
 
     if (nome == undefined) {
         res.status(400).send("O nome está indefinido!");
@@ -36,8 +37,10 @@ function cadastrar(req, res) {
         res.status(403).send("A data de validade está indefinida!");
     } else if (dataFabricacao == undefined) {
         res.status(403).send("A data de fabricação está indefinida!");
+    } else if (idUsuarioVar == undefined) {
+        res.status(403).send("O id do usuário está indefinido!");
     } else {
-        vacinaModel.cadastrar(nome, fabricante, lote, tempMin, tempMax, dataValidade, dataFabricacao)
+        vacinaModel.cadastrar(nome, fabricante, lote, tempMin, tempMax, dataValidade, dataFabricacao, idUsuarioVar)
             .then(
                 function (resultado) {
                     res.json(resultado);

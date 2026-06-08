@@ -95,6 +95,7 @@
     let tempMax = ipt_temp_max.value;
     let dataValidade = ipt_data_validade.value;
     let dataFabricacao = ipt_data_fabricacao.value;
+    let idUsuario = sessionStorage.ID_USUARIO;
 
     if (nomeVacina == '' || fabricante == '' || lote == '' || tempMin == '' || tempMax == '' || dataValidade == '' || dataFabricacao == '') {
       alert("Preencha todos os campos para prosseguir!");
@@ -113,7 +114,8 @@
         tempMinServer: tempMin,
         tempMaxServer: tempMax,
         dataValidadeServer: dataValidade,
-        dataFabricacaoServer: dataFabricacao
+        dataFabricacaoServer: dataFabricacao,
+        userId: idUsuario
       })
     }).then(function (resposta) {
 

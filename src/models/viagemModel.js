@@ -61,9 +61,9 @@ function buscarTempEmTempoReal(idSensor) {
 }
 
 
-function cadastrar(veiculo, vacina, qtdVacina, origem, destino) {
+function cadastrar(veiculo, vacina, qtdVacina, origem, destino, idUsuarioVar) {
   
-  var instrucaoSql = `INSERT INTO viagem (fkTransporte, fkVacina, qtdVacina, origem, destino) VALUES (${veiculo}, ${vacina}, ${qtdVacina}, '${origem}', '${destino}')`;
+  var instrucaoSql = `INSERT INTO viagem (fkTransporte, fkVacina, qtdVacina, origem, destino, fkUsuario) VALUES (${veiculo}, ${vacina}, ${qtdVacina}, '${origem}', '${destino}', ${idUsuarioVar})`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
