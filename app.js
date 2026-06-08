@@ -15,7 +15,6 @@ var HOST_APP = process.env.APP_HOST;
 
 var app = express();
 
-var bobiaRouter = require("./bobia/bobias");
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var vacinaRouter = require("./src/routes/vacinas");
@@ -29,7 +28,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-app.use("/bobia", bobiaRouter);
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/vacinas", vacinaRouter);
