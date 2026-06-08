@@ -75,6 +75,17 @@
     z-index: 1;
 }
 
+
+#container-veiculos{
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
 .container-veiculos::before{
     content: "";
     position: absolute;
@@ -130,7 +141,7 @@
     padding-top: 20px;
     font-size: 36px;
     text-align: center;
-    color: #ffffff;
+    color: #57179f;
 }
 .texto-graus{
     font-size: 30px;
