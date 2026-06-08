@@ -2,7 +2,6 @@ var database = require("../database/config");
 
 function  buscarRotasPorEmpresa(empresaId) {
 
-
   var instrucaoSql = `select * from vwGeralRotas
 	 where fkEmpresa = ${empresaId};`;
 
