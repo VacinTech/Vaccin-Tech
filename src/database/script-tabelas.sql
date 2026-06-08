@@ -25,10 +25,6 @@ CREATE TABLE Usuario (
 
 select * from Usuario;
 
-
-
-
-
 CREATE TABLE Transporte (
     idTransporte INT PRIMARY KEY AUTO_INCREMENT,
     placa VARCHAR(10) UNIQUE not null,
