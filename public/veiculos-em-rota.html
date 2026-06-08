@@ -31,10 +31,10 @@
           <a href="veiculos-em-rota.html"><i class="fas fa-solid fa-road"></i> Veículos em rota</a>
         </li>
         <li>
-          <a onclick="bobia()"><i class="fas fa-solid fa-robot"></i>Solicitar IAssistente</a>
+          <a href="./bobia/bobia.html"><i class="fas fa-solid fa-robot"></i>Solicitar IAssistente</a>
         </li>
         <li>
-          <a href="jira.html"><i class="fas fa-solid fa-headset"></i>Jira</a>
+          <a href="https://vaccintechhelp.atlassian.net/servicedesk/customer/portal/2" target="_blank"><i class="fas fa-solid fa-headset"></i>Jira</a>
         </li>
         <li>
           <a href="index.html"><i class="fas fa-solid fa-house"></i>Voltar</a>
@@ -52,20 +52,6 @@
 
 </html>
 <script>
-  function bobia() {
-    fetch("/bobia")
-      .then((resposta) => {
-        if (resposta.ok) {
-          window.location.href = "../bobia/bobia.html";
-        } else {
-          alert("Erro ao acessar o IAssistente.");
-        }
-      })
-      .catch((erro) => {
-        console.error(erro);
-        alert("Erro ao acessar o IAssistente.");
-      });
-  }
   function abrirDetalhes(idViagem, idSensor) {
     sessionStorage.ID_VIAGEM = idViagem;
     sessionStorage.ID_SENSOR = idSensor;
