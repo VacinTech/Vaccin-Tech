@@ -1,7 +1,6 @@
 CREATE DATABASE VaccinTech;
+drop database if exists VaccinTech;
 USE VaccinTech;
-
-
 
 CREATE TABLE Empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
@@ -9,7 +8,6 @@ CREATE TABLE Empresa (
     cnpj CHAR(14) UNIQUE,
     telefone VARCHAR(15)
 );
-
 
 CREATE TABLE Usuario (
     idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -22,12 +20,6 @@ CREATE TABLE Usuario (
     CONSTRAINT chkPerfil CHECK (perfil IN ('Admin', 'Gerente', 'Operário')),
     CONSTRAINT fkUserEmpresa FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
-
-select * from Usuario;
-
-
-
-
 
 CREATE TABLE Transporte (
     idTransporte INT PRIMARY KEY AUTO_INCREMENT,
@@ -87,13 +79,9 @@ select DATE_FORMAT(dataHora,'%H:%i:%s') from Monitoramento where idMonitoramento
 select dataHora from monitoramento where idMonitoramento = 1;
 
 
-SELECT 
-                        temperatura,
-                        dataHora,
-                        date_format(dataHora,'%H:%i:%s') as hora
-                    FROM Monitoramento
-                    WHERE fkSensor = 2
-                    ORDER BY idMonitoramento DESC LIMIT 2;
+SELECT temperatura, dataHora, date_format(dataHora,'%H:%i:%s') as hora
+FROM Monitoramento WHERE fkSensor = 2
+ORDER BY idMonitoramento DESC LIMIT 2;
                     
 CREATE TABLE Alerta (
     idAlerta INT,
@@ -111,13 +99,6 @@ insert into Empresa (razaoSocial, cnpj, telefone) values
 ('Vacina Express Transportes', '12345678000103', '1130011003'),
 ('HealthCargo Distribuicao', '12345678000104', '1130011004'),
 ('ImunoTech Solutions', '12345678000105', '1130011005');
-
-insert into Usuario values
-(default, 'Tito', 'tito@gmail.com', '12345678', 'Admin', '12212212212', 1);
-
-
-    
-    
 
 create view vwGeralRotas as 
 	select
@@ -142,11 +123,10 @@ create view vwGeralRotas as
         where vi.statusViagem = 'Trânsito';
             
 
-
 select * from vwGeralRotas
 	 where fkEmpresa = 1; -- aqui coloca ${idEmpresa};
      
-
+     
 create view vwTudoDashIndividual as
 	select 
 		vi.idViagem, vi.origem, vi.destino,
@@ -260,10 +240,6 @@ VALUES
 (1, 3, 'Temperatura Alta'),
 (2, 6, 'Temperatura Alta');
 
-select * from Usuario;
-select * from Viagem;
-select * from Monitoramento;
-insert into Monitoramento (temperatura, fkSensor) values
+INSERT INTO Monitoramento (temperatura, fkSensor) 
+VALUES
 (8.0, 1);
-
- SELECT idUsuario, nomeCompleto, email, perfil, fkEmpresa FROM usuario WHERE email = 'tito@gmail.com' AND senha = '12345678';
