@@ -37,6 +37,7 @@
     </div>
 
     <div class="conteudo-dashboard-veiculos">
+      <div id="div_att"></div>
       <h1 style="font-size: 40px">
         VEÍCULO <span id="placaCarro">ACD8777</span>
       </h1>
@@ -87,9 +88,9 @@
   let proximaAtualizacao;
 
   function trazerKpi() {
-    let idViagem = 3;
+    
 
-    fetch(`/viagens/tudoDashIndividual/${idViagem}`).then(function (resposta) {
+    fetch(`/viagens/tudoDashIndividual/${sessionStorage.ID_VIAGEM}`).then(function (resposta) {
       if (resposta.ok) {
         resposta.json().then(function (resposta) {
           console.log("Dados recebidos: ", JSON.stringify(resposta));
@@ -102,17 +103,20 @@
           let maxAtingido = resposta[0].maxAtingido;
           let temperaturaAtual = resposta[0].temperaturaAtual;
           let statuss = "OK";
+          div_att.innerHTML = "";
 
           if (
             temperaturaAtual == temperaturaMax ||
             temperaturaAtual == temperaturaMin
           ) {
             statuss = "ALERTA";
+            div_att.innerHTML = `<b class="bAtt" style="background-color: yellow; color: black" >ALERTA</b>`;
           } else if (
             temperaturaAtual > temperaturaMax ||
             temperaturaAtual < temperaturaMin
           ) {
             statuss = "CRÍTICO";
+            div_att.innerHTML = `<b class="bAtt" style="background-color: red; color: black" >CRÍTICO</b>`;
           }
 
           placaCarro.innerHTML = `${placa}`;
