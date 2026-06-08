@@ -75,6 +75,7 @@
     let qtdVacinaVar = document.getElementById("ipt_qtd_vacina").value;
     let origemVar = document.getElementById("ipt_origem").value;
     let destinoVar = document.getElementById("ipt_destino").value;
+    let idUsuario = sessionStorage.ID_USUARIO;
 
     if (vacinaVar == '' || veiculoVar == '' || qtdVacinaVar == '' || origemVar == '' || destinoVar == '') {
       alert("Preencha todos os campos para prosseguir!");
@@ -91,7 +92,8 @@
         veiculo: veiculoVar,
         qtdVacina: qtdVacinaVar,
         origem: origemVar,
-        destino: destinoVar
+        destino: destinoVar,
+        userId: idUsuario
       })
     }).then(function (resposta) {
 

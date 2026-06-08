@@ -71,6 +71,7 @@
     let modeloVar = ipt_modelo.value;
     let tipoRefrigeramentoVar = ipt_tipo_refrigeramento.value;
     let empresaIdVar = document.getElementById("selecione-empresa").value;
+    let idUser = sessionStorage.ID_USUARIO;
 
     if (placaVar == '' || modeloVar == '' || tipoRefrigeramentoVar == '' || empresaIdVar == '') {
       alert("Preencha todos os campos para prosseguir!");
@@ -86,7 +87,8 @@
         placa: placaVar,
         modelo: modeloVar,
         tipoRefrigeramento: tipoRefrigeramentoVar,
-        empresaId: empresaIdVar
+        empresaId: empresaIdVar,
+        userId: idUser
       })
     }).then(function (resposta) {
 
