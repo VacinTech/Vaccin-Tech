@@ -21,7 +21,7 @@ function  tudoDashIndividual(idViagem) {
 
 function concluirRota(idViagem) {
     var instrucaoSql = `
-        update viagem
+        update Viagem
         set statusViagem = 'Concluída'
         where idViagem = ${idViagem};
     `;
@@ -63,7 +63,7 @@ function buscarTempEmTempoReal(idSensor) {
 
 function cadastrar(veiculo, vacina, qtdVacina, origem, destino, idUsuarioVar) {
   
-  var instrucaoSql = `INSERT INTO viagem (fkTransporte, fkVacina, qtdVacina, origem, destino, fkUsuario) VALUES (${veiculo}, ${vacina}, ${qtdVacina}, '${origem}', '${destino}', ${idUsuarioVar})`;
+  var instrucaoSql = `INSERT INTO Viagem (fkTransporte, fkVacina, qtdVacina, origem, destino, fkUsuario) VALUES (${veiculo}, ${vacina}, ${qtdVacina}, '${origem}', '${destino}', ${idUsuarioVar})`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
