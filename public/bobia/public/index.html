@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="../../icons/robo.png" />
+  <title>BobIA - Assistente Vaccintech</title>
+</head>
+
+<body>
+  <main class="container-principal-veiculos">
+    
+    <div class="nav-vertical">
+      <h2 style="color: #fff; letter-spacing: 0.15rem">
+        VACCIN<span style="color: #153963">TECH</span>
+      </h2>
+      <ul>
+        <li>
+          <a href="../../adicionar-rota.html" class="link-header"><i class="fas fa-solid fa-truck-fast"></i> Adicionar Rota</a>
+        </li>
+        <li>
+          <a href="../../cadastrar-vacina.html"><i class="fas fa-solid fa-syringe"></i> Cadastrar Vacina</a>
+        </li>
+        <li>
+          <a href="../../cadastrar-veiculo.html"><i class="fas fa-solid fa-car"></i> Cadastrar Veículo</a>
+        </li>
+        <li>
+          <a href="../../veiculos-em-rota.html"><i class="fas fa-solid fa-road"></i> Veículos em rota</a>
+        </li>
+        <li>
+          <a href="localhost:3000"><i class="fas fa-solid fa-robot"></i>Solicitar IAssistente</a>
+        </li>
+        <li>
+          <a href="https://vaccintechhelp.atlassian.net/servicedesk/customer/portal/2" target="_blank"><i class="fas fa-solid fa-headset"></i>Jira</a>
+        </li>
+        <li>
+          <a href="../../index.html"><i class="fas fa-solid fa-house"></i>Voltar</a>
+        </li>
+      </ul>
+    </div>
+
+    <div id="container-veiculos" style="display: flex; flex-direction: column; align-items: center;">
+      
+      <h1 class="texto-veiculos">SOLICITAR IA ASSISTENTE</h1>
+      
+      <div class="container_cadastro" style="width: 85%; max-width: 650px; margin-top: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        
+        <div class="form_carga" style="width: 100%;">
+          
+          <div class="campo">
+            <label for="pergunta">Como posso te ajudar hoje?</label>
+            <textarea id="pergunta" placeholder="Digite sua pergunta sobre rotas, temperaturas ou vacinas..." style="padding: 12px; border: none; border-radius: 5px; outline: none; font-size: 15px; font-family: 'Montserrat', sans-serif; resize: vertical; min-height: 90px;"></textarea>
+          </div>
+          
+          <button class="btn_adicionar" onclick="gerarResposta()" style="margin-top: 10px;">Gerar Resposta</button>
+          
+          <div class="campo" style="margin-top: 20px;">
+            <label style="margin-bottom: 10px; display: block;">Resposta da IA:</label>
+            <div id="resposta" style="display: none; background: rgba(255, 255, 255, 0.15); color: #fff; padding: 15px; border-radius: 8px; font-size: 15px; line-height: 1.6; white-space: pre-wrap; border: 1px solid rgba(255, 255, 255, 0.1);"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    async function gerarResposta() {
+      const perguntaElement = document.getElementById('pergunta');
+      const respostaDiv = document.getElementById('resposta');
+      const pergunta = perguntaElement.value.trim();
+
+      if (!pergunta) {
+        alert("Por favor, digite uma pergunta antes de enviar.");
+        return;
+      }
+
+      // Feedback visual de carregamento
+      respostaDiv.style.display = 'block';
+      respostaDiv.innerText = "Processando sua resposta... Por favor, aguarde.";
+
+      try {
+        const response = await fetch('/perguntar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ pergunta })
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro na resposta do servidor");
+        }
+
+        const data = await response.json();
+        
+        // Exibe o resultado retornado pela API
+        respostaDiv.innerText = data.resultado;
+        perguntaElement.value = ""; // Limpa a caixa de texto após o envio bem-sucedido
+        
+      } catch (error) {
+        respostaDiv.innerText = "Desculpe, ocorreu um erro ao se comunicar com a BobIA. Tente novamente mais tarde.";
+        console.error("Erro na requisição:", error);
+      }
+    }
+  </script>
+</body>
+
+</html>
