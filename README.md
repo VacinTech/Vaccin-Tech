@@ -1,7 +1,7 @@
 # VaccinTech
 
 ### Sobre o Projeto
-### O VaccinTech é um sistema de monitoramento de temperatura para o transporte de vacinas. Através da coleta de dados em tempo real, a plataforma auxilia no controle das condições de armazenamento, contribuindo para a conservação e segurança dos imunizantes.
+O VaccinTech é um sistema de monitoramento de temperatura para o transporte de vacinas. Através da coleta de dados em tempo real, a plataforma auxilia no controle das condições de armazenamento, contribuindo para a conservação e segurança dos imunizantes.
 
 ### Ferramentas Utilizadas
 • HTML5  
