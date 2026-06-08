@@ -1,15 +1,12 @@
 CREATE DATABASE VaccinTech;
 USE VaccinTech;
 
-
-
 CREATE TABLE Empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     razaoSocial VARCHAR(100),
     cnpj CHAR(14) UNIQUE,
     telefone VARCHAR(15)
 );
-
 
 CREATE TABLE Usuario (
     idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -23,15 +20,15 @@ CREATE TABLE Usuario (
     CONSTRAINT fkUserEmpresa FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
-select * from Usuario;
-
 CREATE TABLE Transporte (
     idTransporte INT PRIMARY KEY AUTO_INCREMENT,
     placa VARCHAR(10) UNIQUE not null,
     modelo VARCHAR(50) not null,
     tipoRefrigeramento VARCHAR(50),
     fkEmpresa INT not null,
-    CONSTRAINT fkTranspEmpresa FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
+    CONSTRAINT fkTranspEmpresa FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa),
+    fkUsuario int not null,
+    constraint fkTranspUsuario foreign key (fkUsuario) references Usuario(idUsuario)
 );
 
 CREATE TABLE Vacina (
@@ -40,7 +37,9 @@ CREATE TABLE Vacina (
     fabricante VARCHAR(100),
     lote VARCHAR(50),
     temperaturaMin DECIMAL(4,2) DEFAULT 2.00, 
-    temperaturaMax DECIMAL(4,2) DEFAULT 8.00
+    temperaturaMax DECIMAL(4,2) DEFAULT 8.00,
+    fkUsuario int not null,
+    constraint fkVacinaUsuario foreign key (fkUsuario) references Usuario(idUsuario)
 );
 
 create table Viagem (
@@ -57,7 +56,9 @@ constraint fkVacinaViagem foreign key (fkVacina)
 	references Vacina(idVacina),
 constraint fkTransporteViagem foreign key (fkTransporte)
 	references Transporte(idTransporte),
-    CONSTRAINT chkStatus CHECK (statusViagem IN ('Trânsito', 'Concluída', 'Cancelada'))
+    CONSTRAINT chkStatus CHECK (statusViagem IN ('Trânsito', 'Concluída', 'Cancelada')),
+    fkUsuario int not null,
+    constraint fkViagemUsuario foreign key (fkUsuario) references Usuario(idUsuario)
 );
 
 
@@ -70,10 +71,11 @@ CREATE TABLE Sensor (
 );
 
 create table Monitoramento (
-    idMonitoramento int primary key auto_increment,
+    idMonitoramento int auto_increment,
     temperatura decimal(5,2),
     dataHora datetime default current_timestamp,
-    fkSensor int not null,
+    fkSensor int,
+    primary key (idMonitoramento, fkSensor),
     constraint fkSensorCon
         foreign key (fkSensor)
         references Sensor(idSensor)
@@ -83,20 +85,18 @@ select DATE_FORMAT(dataHora,'%H:%i:%s') from Monitoramento where idMonitoramento
 select dataHora from monitoramento where idMonitoramento = 1;
 
 
-SELECT 
-                        temperatura,
-                        dataHora,
-                        date_format(dataHora,'%H:%i:%s') as hora
-                    FROM Monitoramento
-                    WHERE fkSensor = 2
-                    ORDER BY idMonitoramento DESC LIMIT 2;
+SELECT temperatura, dataHora, date_format(dataHora,'%H:%i:%s') as hora
+FROM Monitoramento WHERE fkSensor = 2
+ORDER BY idMonitoramento DESC LIMIT 2;
                     
 CREATE TABLE Alerta (
     idAlerta INT,
     fkMonitoramento INT NOT NULL UNIQUE,
+    fkSensor int,
     tipoAlerta VARCHAR(50),
     dataHora DATETIME DEFAULT CURRENT_TIMESTAMP,
-    constraint pkAlerta primary key (idAlerta, fkMonitoramento),
+    constraint pkAlerta primary key (idAlerta, fkMonitoramento, fkSensor),
+    constraint fkAlertaSensor foreign key (fkSensor) references Sensor(idSensor),
     CONSTRAINT fkAlertaMonitor FOREIGN KEY (fkMonitoramento) 
         REFERENCES Monitoramento(idMonitoramento)
 );
@@ -107,13 +107,6 @@ insert into Empresa (razaoSocial, cnpj, telefone) values
 ('Vacina Express Transportes', '12345678000103', '1130011003'),
 ('HealthCargo Distribuicao', '12345678000104', '1130011004'),
 ('ImunoTech Solutions', '12345678000105', '1130011005');
-
-insert into Usuario values
-(default, 'Tito', 'tito@gmail.com', '12345678', 'Admin', '12212212212', 1);
-
-
-    
-    
 
 create view vwGeralRotas as 
 	select
@@ -138,11 +131,10 @@ create view vwGeralRotas as
         where vi.statusViagem = 'Trânsito';
             
 
-
 select * from vwGeralRotas
 	 where fkEmpresa = 1; -- aqui coloca ${idEmpresa};
      
-
+     
 create view vwTudoDashIndividual as
 	select 
 		vi.idViagem, vi.origem, vi.destino,
@@ -179,22 +171,26 @@ select * from vwTudoDashIndividual
 
 select temperatura	
 	from Monitoramento where fkSensor = 1;
+
+-- USUÁRIO
+INSERT INTO Usuario (nomeCompleto, email, senha, perfil, dtCadastro, fkEmpresa) VALUES
+('Gabriel', 'gabriel@gmail.com', '123456', 'Admin', default, 1);
     
 -- VACINAS
-INSERT INTO Vacina (nome, fabricante, lote) VALUES
-('Comirnaty', 'Pfizer', 'PF2026001'),
-('Spikevax', 'Moderna', 'MD2026001'),
-('Vaxzevria', 'AstraZeneca', 'AZ2026001'),
-('CoronaVac', 'Sinovac', 'SV2026001');
+INSERT INTO Vacina (nome, fabricante, lote, fkUsuario) VALUES
+('Comirnaty', 'Pfizer', 'PF2026001', 1),
+('Spikevax', 'Moderna', 'MD2026001', 1),
+('Vaxzevria', 'AstraZeneca', 'AZ2026001', 1),
+('CoronaVac', 'Sinovac', 'SV2026001', 1);
 
 -- TRANSPORTES DA EMPRESA 1
 INSERT INTO Transporte
-(placa, modelo, tipoRefrigeramento, fkEmpresa)
+(placa, modelo, tipoRefrigeramento, fkEmpresa, fkUsuario)
 VALUES
-('ABC1A11', 'Mercedes Accelo', 'Baú Refrigerado', 1),
-('DEF2B22', 'Volkswagen Delivery', 'Baú Refrigerado', 1),
-('GHI3C33', 'Iveco Daily', 'Baú Refrigerado', 1),
-('JKL4D44', 'Mercedes Sprinter', 'Baú Refrigerado', 1);
+('ABC1A11', 'Mercedes Accelo', 'Baú Refrigerado', 1, 1),
+('DEF2B22', 'Volkswagen Delivery', 'Baú Refrigerado', 1, 1),
+('GHI3C33', 'Iveco Daily', 'Baú Refrigerado', 1, 1),
+('JKL4D44', 'Mercedes Sprinter', 'Baú Refrigerado', 1, 1);
 
 -- SENSORES (1 SENSOR POR TRANSPORTE)
 INSERT INTO Sensor
@@ -213,13 +209,14 @@ INSERT INTO Viagem
     origem,
     destino,
     qtdVacina,
-    statusViagem
+    statusViagem,
+    fkUsuario
 )
 VALUES
-(1, 1, 'São Paulo', 'Rio de Janeiro', 5000, 'Trânsito'),
-(2, 2, 'Campinas', 'Belo Horizonte', 3200, 'Trânsito'),
-(3, 3, 'Curitiba', 'Florianópolis', 4100, 'Trânsito'),
-(4, 4, 'São Paulo', 'Brasília', 2800, 'Trânsito');
+(1, 1, 'São Paulo', 'Rio de Janeiro', 5000, 'Trânsito', 1),
+(2, 2, 'Campinas', 'Belo Horizonte', 3200, 'Trânsito', 1),
+(3, 3, 'Curitiba', 'Florianópolis', 4100, 'Trânsito', 1),
+(4, 4, 'São Paulo', 'Brasília', 2800, 'Trânsito', 1);
 
 
 -- HISTÓRICO DE MONITORAMENTO
@@ -251,15 +248,11 @@ insert into Monitoramento (temperatura, fkSensor) values
 
 -- ALERTAS DE EXEMPLO
 INSERT INTO Alerta
-(idAlerta, fkMonitoramento, tipoAlerta)
+(idAlerta, fkMonitoramento, tipoAlerta, fkSensor)
 VALUES
-(1, 3, 'Temperatura Alta'),
-(2, 6, 'Temperatura Alta');
+(1, 3, 'Temperatura Alta', 1),
+(2, 6, 'Temperatura Alta', 1);
 
-select * from Usuario;
-select * from Viagem;
-select * from Monitoramento;
-insert into Monitoramento (temperatura, fkSensor) values
+INSERT INTO Monitoramento (temperatura, fkSensor) 
+VALUES
 (8.0, 1);
-
- SELECT idUsuario, nomeCompleto, email, perfil, fkEmpresa FROM usuario WHERE email = 'tito@gmail.com' AND senha = '12345678';
