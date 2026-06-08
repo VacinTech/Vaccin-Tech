@@ -40,7 +40,7 @@
 }
 
 .container-principal-veiculos .nav-vertical ul li{
-    padding: 35px;
+    padding: 25px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 
@@ -141,7 +141,7 @@
     padding-top: 20px;
     font-size: 36px;
     text-align: center;
-    color: #57179f;
+    color: #5b6ac2;
 }
 .texto-graus{
     font-size: 30px;
