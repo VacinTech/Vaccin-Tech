@@ -22,6 +22,7 @@ function cadastrar(req, res) {
   var modelo = req.body.modelo;
   var tipoRefrigeramento = req.body.tipoRefrigeramento;
   var empresaId = req.body.empresaId;
+  var userId = req.body.userId;
 
   if (placa == undefined) {
     res.status(400).send("placa está undefined!");
@@ -31,10 +32,12 @@ function cadastrar(req, res) {
     res.status(400).send("tipoRefrigeramento está undefined!");
   } else if (empresaId == undefined) {
     res.status(400).send("empresaId está undefined!");
-  } else {
+  } else if (userId == undefined) {
+    res.status(400).send("userId está undefined!");
+  }else {
 
 
-    transporteModel.cadastrar(placa, modelo, tipoRefrigeramento, empresaId)
+    transporteModel.cadastrar(placa, modelo, tipoRefrigeramento, empresaId, userId)
       .then((resultado) => {
         res.status(201).json(resultado);
       }

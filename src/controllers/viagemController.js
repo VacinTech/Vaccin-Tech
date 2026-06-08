@@ -39,6 +39,7 @@ function cadastrar(req, res) {
   var qtdVacina = req.body.qtdVacina;
   var origem = req.body.origem;
   var destino = req.body.destino;
+  var idUsuarioVar = req.body.userId;
 
   if (veiculo == undefined) {
     res.status(400).send("veiculo está undefined!");
@@ -50,6 +51,8 @@ function cadastrar(req, res) {
     res.status(400).send("origem está undefined!");
   } else if (destino == undefined) {
     res.status(400).send("destino está undefined!");
+  } else if (idUsuarioVar == undefined) {
+    res.status(400).send("idUsuarioVar está undefined!");
   } else {
 
 
