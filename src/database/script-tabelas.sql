@@ -1,11 +1,13 @@
 CREATE DATABASE VaccinTech;
 USE VaccinTech;
 
+
 CREATE TABLE Empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     razaoSocial VARCHAR(100),
     cnpj CHAR(14) UNIQUE,
-    telefone VARCHAR(15)
+    telefone VARCHAR(15),
+    codigoAtivacao varchar(50)
 );
 
 CREATE TABLE Usuario (
@@ -81,13 +83,6 @@ create table Monitoramento (
         references Sensor(idSensor)
 );
 
-select DATE_FORMAT(dataHora,'%H:%i:%s') from Monitoramento where idMonitoramento = 1;
-select dataHora from monitoramento where idMonitoramento = 1;
-
-
-SELECT temperatura, dataHora, date_format(dataHora,'%H:%i:%s') as hora
-FROM Monitoramento WHERE fkSensor = 2
-ORDER BY idMonitoramento DESC LIMIT 2;
                     
 CREATE TABLE Alerta (
     idAlerta INT,
@@ -101,12 +96,13 @@ CREATE TABLE Alerta (
         REFERENCES Monitoramento(idMonitoramento)
 );
 
-insert into Empresa (razaoSocial, cnpj, telefone) values
-('Pfizer Brasil Ltda', '12345678000101', '1130011001'),
-('BioNTech Logistica S.A.', '12345678000102', '1130011002'),
-('Vacina Express Transportes', '12345678000103', '1130011003'),
-('HealthCargo Distribuicao', '12345678000104', '1130011004'),
-('ImunoTech Solutions', '12345678000105', '1130011005');
+insert into Empresa (razaoSocial, cnpj, telefone, codigoAtivacao) values
+('Pfizer Brasil Ltda', '12345678000101', '1130011001', 'PFIZER123'),
+('BioNTech Logistica S.A.', '12345678000102', '1130011002', 'BIONTECH123'),
+('Vacina Express Transportes', '12345678000103', '1130011003', 'VACEXPRESS123'),
+('HealthCargo Distribuicao', '12345678000104', '1130011004', 'HEALTHCARGO123'),
+('ImunoTech Solutions', '12345678000105', '1130011005', 'IMUNOTECH123');
+
 
 create view vwGeralRotas as 
 	select
@@ -170,21 +166,17 @@ select * from vwTudoDashIndividual
 	 where idViagem = 1; -- aqui coloca ${idEmpresa};
 
 
-select temperatura	
-	from Monitoramento where fkSensor = 1;
-
--- USUÁRIO
 INSERT INTO Usuario (nomeCompleto, email, senha, perfil, dtCadastro, fkEmpresa) VALUES
 ('Gabriel', 'gabriel@gmail.com', '123456', 'Admin', default, 1);
     
--- VACINAS
+
 INSERT INTO Vacina (nome, fabricante, lote, fkUsuario) VALUES
 ('Comirnaty', 'Pfizer', 'PF2026001', 1),
 ('Spikevax', 'Moderna', 'MD2026001', 1),
 ('Vaxzevria', 'AstraZeneca', 'AZ2026001', 1),
 ('CoronaVac', 'Sinovac', 'SV2026001', 1);
 
--- TRANSPORTES DA EMPRESA 1
+
 INSERT INTO Transporte
 (placa, modelo, tipoRefrigeramento, fkEmpresa, fkUsuario)
 VALUES
@@ -193,7 +185,7 @@ VALUES
 ('GHI3C33', 'Iveco Daily', 'Baú Refrigerado', 1, 1),
 ('JKL4D44', 'Mercedes Sprinter', 'Baú Refrigerado', 1, 1);
 
--- SENSORES (1 SENSOR POR TRANSPORTE)
+
 INSERT INTO Sensor
 (modelo, dataInstalacao, fkTransporte)
 VALUES
@@ -202,7 +194,7 @@ VALUES
 ('LM35', '2026-05-03', 3),
 ('LM35', '2026-05-04', 4);
 
--- VIAGENS EM TRÂNSITO
+
 INSERT INTO Viagem
 (
     fkVacina,
@@ -220,7 +212,7 @@ VALUES
 (4, 4, 'São Paulo', 'Brasília', 2800, 'Trânsito', 1);
 
 
--- HISTÓRICO DE MONITORAMENTO
+
 INSERT INTO Monitoramento (temperatura, fkSensor) VALUES
 (5.1, 1),
 (5.3, 1),
@@ -247,7 +239,7 @@ insert into Monitoramento (temperatura, fkSensor) values
 (4.6, 3);
 
 
--- ALERTAS DE EXEMPLO
+
 INSERT INTO Alerta
 (idAlerta, fkMonitoramento, tipoAlerta, fkSensor)
 VALUES
