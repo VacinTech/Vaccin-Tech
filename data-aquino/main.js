@@ -51,12 +51,16 @@ const serial = async (
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
         console.log(data);
         const valores = data.split(';');
-       // const sensorDigital = parseInt(valores[0]);
+        // const sensorDigital = parseInt(valores[0]);
         const sensor1 = parseFloat(valores[0]) - 16;
         const sensor2 = parseFloat(valores[0]) - 14.5;
+        const sensor3 = parseFloat(valores[0]) - 17.7;
+        const sensor4 = parseFloat(valores[0]) - 11.3;
+
 
         // armazena os valores dos sensores nos arrays correspondentes
         valoresSensorAnalogico.push(sensor1);
+
         //valoresSensorDigital.push(sensorDigital);
 
         // insere os dados no banco de dados (se habilitado)
@@ -68,12 +72,28 @@ const serial = async (
                 [sensor1, 1] // substitua 1 pelo ID real do sensor
             );
 
-             await poolBancoDados.execute(
+            await poolBancoDados.execute(
                 'INSERT INTO Monitoramento (temperatura, fkSensor) VALUES (?, ?)',
                 [sensor2, 2] // substitua 1 pelo ID real do sensor
             );
+
+            await poolBancoDados.execute(
+                'INSERT INTO Monitoramento (temperatura, fkSensor) VALUES (?, ?)',
+                [sensor3, 3] // substitua 1 pelo ID real do sensor
+            );
+
+            await poolBancoDados.execute(
+                'INSERT INTO Monitoramento (temperatura, fkSensor) VALUES (?, ?)',
+                [sensor4, 4] // substitua 1 pelo ID real do sensor
+            );
+
+
             console.log("valores inseridos no banco 1: ", sensor1);
             console.log("valores inseridos no banco 2: ", sensor2);
+            console.log("valores inseridos no banco 1: ", sensor3
+                
+            );
+            console.log("valores inseridos no banco 2: ", sensor4);
 
         }
 
