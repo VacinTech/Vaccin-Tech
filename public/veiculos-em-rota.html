@@ -92,17 +92,20 @@
 
             for (let i = 0; i < resposta.length; i++) {
               let rota = resposta[i];
+              let temperaturaAtual = Number(rota.temperaturaAtual);
+              let temperaturaMin = Number(rota.temperaturaMin);
+              let temperaturaMax = Number(rota.temperaturaMax);
 
               let corTemperatura = "green";
 
               if (
-                rota.temperaturaAtual < rota.temperaturaMin ||
-                rota.temperaturaAtual > rota.temperaturaMax
+                temperaturaAtual < temperaturaMin ||
+                temperaturaAtual > temperaturaMax
               ) {
                 corTemperatura = "red";
               } else if (
-                rota.temperaturaAtual == rota.temperaturaMin ||
-                rota.temperaturaAtual == rota.temperaturaMax
+                temperaturaAtual == temperaturaMin ||
+                temperaturaAtual == temperaturaMax
               ) {
                 corTemperatura = "yellow";
               }
