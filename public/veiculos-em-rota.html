@@ -1,55 +1,69 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./css/stylecsscargadash.css" />
+    <link rel="icon" href="./icons/vacinado.png" />
+    <title>Veículos em rota</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="stylesheet" href="./css/stylecsscargadash.css" />
-  <link rel="icon" href="./icons/vacinado.png" />
-  <title>Veículos em rota</title>
-</head>
-
-<body onload="atualizarFeed()">
-  <main class="container-principal-veiculos">
-    <div class="nav-vertical">
-      <h2 style="color: #fff; letter-spacing: 0.15rem">
-        VACCIN<span style="color: #153963">TECH</span>
-      </h2>
-      <ul>
-        <li>
-          <a href="adicionar-rota.html" class="link-header"><i class="fas fa-solid fa-truck-fast"></i> Adicionar
-            Rota</a>
-        </li>
-        <li>
-          <a href="cadastrar-vacina.html"><i class="fas fa-solid fa-syringe"></i> Cadastrar Vacina</a>
-        </li>
-        <li>
-          <a href="cadastrar-veiculo.html"><i class="fas fa-solid fa-car"></i> Cadastrar Veículo</a>
-        </li>
-        <li>
-          <a href="veiculos-em-rota.html"><i class="fas fa-solid fa-road"></i> Veículos em rota</a>
-        </li>
-        <li>
-          <a href="http://localhost:3000"><i class="fas fa-solid fa-robot"></i>Solicitar IAssistente</a>
-        </li>
-        <li>
-          <a href="https://vaccintechhelp.atlassian.net/servicedesk/customer/portal/2" target="_blank"><i class="fas fa-solid fa-headset"></i>Jira</a>
-        </li>
-        <li>
-          <a href="index.html"><i class="fas fa-solid fa-house"></i>Voltar</a>
-        </li>
-      </ul>
-    </div>
-    <div id="container-veiculos">
-      <h1 class="texto-veiculos">VEÍCULOS EM ROTA</h1>
-      <div class="container-caixas-veiculos">
-        <!-- As caixas de veículos serão inseridas aqui dinamicamente -->
+  <body onload="atualizarFeed()">
+    <main class="container-principal-veiculos">
+      <div class="nav-vertical">
+        <h2 style="color: #fff; letter-spacing: 0.15rem">
+          VACCIN<span style="color: #153963">TECH</span>
+        </h2>
+        <ul>
+          <li>
+            <a href="adicionar-rota.html" class="link-header"
+              ><i class="fas fa-solid fa-truck-fast"></i> Adicionar Rota</a
+            >
+          </li>
+          <li>
+            <a href="cadastrar-vacina.html"
+              ><i class="fas fa-solid fa-syringe"></i> Cadastrar Vacina</a
+            >
+          </li>
+          <li>
+            <a href="cadastrar-veiculo.html"
+              ><i class="fas fa-solid fa-car"></i> Cadastrar Veículo</a
+            >
+          </li>
+          <li>
+            <a href="veiculos-em-rota.html"
+              ><i class="fas fa-solid fa-road"></i> Veículos em rota</a
+            >
+          </li>
+          <li>
+            <a href="http://localhost:3000"
+              ><i class="fas fa-solid fa-robot"></i>Solicitar IAssistente</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://vaccintechhelp.atlassian.net/servicedesk/customer/portal/2"
+              target="_blank"
+              ><i class="fas fa-solid fa-headset"></i>Jira</a
+            >
+          </li>
+          <li>
+            <a href="index.html"><i class="fas fa-solid fa-house"></i>Voltar</a>
+          </li>
+        </ul>
       </div>
-    </div>
-  </main>
-</body>
-
+      <div id="container-veiculos">
+        <h1 class="texto-veiculos">VEÍCULOS EM ROTA</h1>
+        <div class="container-caixas-veiculos">
+          <!-- As caixas de veículos serão inseridas aqui dinamicamente -->
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
 <script>
   function abrirDetalhes(idViagem, idSensor) {
@@ -95,7 +109,7 @@
               feed.innerHTML += `
                   <div class="caixa-veiculo">
                     <p class="texto-rota" style="color: #153963; font-weight:bold ; font-size:18px;">
-                     VACINA: CORONAVAC
+                     VACINA: ${rota.nome}
                    </p>
                     <p class="texto-rota">
                       ${rota.origem} ➔ ${rota.destino}
@@ -141,9 +155,7 @@
   }
 
   function concluirRota(idViagem) {
-    const confirmar = confirm(
-      "Tem certeza que deseja concluir esta rota?"
-    );
+    const confirmar = confirm("Tem certeza que deseja concluir esta rota?");
 
     if (!confirmar) {
       return;
