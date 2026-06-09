@@ -44,13 +44,6 @@
             <input type="text" id="ipt_tipo_refrigeramento" placeholder="Ex: Refrigeração ativa">
           </div>
 
-         <div class="campo">
-            <label><i class="fa-solid fa-truck"></i> Escolha a empresa</label>
-            <select id="selecione-empresa" class="select-cadastro-vacina">
-              <option value="">Selecione uma empresa</option>
-            </select>
-          </div>
-
           <button class="btn_adicionar" onclick="cadastrarVeiculo()">
             Adicionar Veículo
           </button>
@@ -70,7 +63,7 @@
     let placaVar = ipt_placa.value;
     let modeloVar = ipt_modelo.value;
     let tipoRefrigeramentoVar = ipt_tipo_refrigeramento.value;
-    let empresaIdVar = document.getElementById("selecione-empresa").value;
+    let empresaIdVar = sessionStorage.EMPRESA_USUARIO;
     let idUser = sessionStorage.ID_USUARIO;
 
     if (placaVar == '' || modeloVar == '' || tipoRefrigeramentoVar == '' || empresaIdVar == '') {

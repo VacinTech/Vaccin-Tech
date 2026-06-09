@@ -7,7 +7,7 @@ router.post("/cadastrar", function (req, res) {
     transporteController.cadastrar(req, res);
 })
 
-router.get("/listar", function (req, res) {
+router.get("/listar/:idUsuario", function (req, res) {
     transporteController.listar(req, res);
 });
 

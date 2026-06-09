@@ -118,7 +118,9 @@
   }
 
   function carregarVacinas() {
-    fetch("/vacinas/listar")
+    let idUsuario = sessionStorage.ID_USUARIO;
+
+    fetch(`/vacinas/listar/${idUsuario}`)
       .then(function (resposta) {
         if (resposta.ok) {
           return resposta.json().then(function (dados) {
@@ -139,7 +141,9 @@
   }
 
   function carregarVeiculos() {
-    fetch("/transportes/listar")
+    let idUsuario = sessionStorage.ID_USUARIO;
+
+    fetch(`/transportes/listar/${idUsuario}`)
       .then(function (resposta) {
         if (resposta.ok) {
           return resposta.json().then(function (dados) {

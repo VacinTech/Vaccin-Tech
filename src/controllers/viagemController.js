@@ -56,7 +56,7 @@ function cadastrar(req, res) {
   } else {
 
 
-    viagemModel.cadastrar(veiculo, vacina, qtdVacina, origem, destino)
+    viagemModel.cadastrar(veiculo, vacina, qtdVacina, origem, destino, idUsuarioVar)
       .then((resultado) => {
         res.status(201).json(resultado);
       }

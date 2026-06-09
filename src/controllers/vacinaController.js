@@ -1,7 +1,9 @@
 var vacinaModel = require("../models/vacinaModel");
 
 function listar(req, res) {
-    vacinaModel.listar().then(function (resultado) {
+    let idUsuario = req.params.idUsuario;
+    
+    vacinaModel.listar(idUsuario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -19,8 +21,6 @@ function cadastrar(req, res) {
     var lote = req.body.loteServer;
     var tempMin = req.body.tempMinServer;
     var tempMax = req.body.tempMaxServer;
-    var dataValidade = req.body.dataValidadeServer;
-    var dataFabricacao = req.body.dataFabricacaoServer;
     var idUsuarioVar = req.body.userId;
 
     if (nome == undefined) {
@@ -33,14 +33,10 @@ function cadastrar(req, res) {
         res.status(403).send("A temperatura mínima está indefinida!");
     } else if (tempMax == undefined) {
         res.status(403).send("A temperatura máxima está indefinida!");
-    } else if (dataValidade == undefined) {
-        res.status(403).send("A data de validade está indefinida!");
-    } else if (dataFabricacao == undefined) {
-        res.status(403).send("A data de fabricação está indefinida!");
     } else if (idUsuarioVar == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        vacinaModel.cadastrar(nome, fabricante, lote, tempMin, tempMax, dataValidade, dataFabricacao, idUsuarioVar)
+        vacinaModel.cadastrar(nome, fabricante, lote, tempMin, tempMax, idUsuarioVar)
             .then(
                 function (resultado) {
                     res.json(resultado);

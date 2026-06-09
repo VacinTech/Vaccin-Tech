@@ -44,17 +44,6 @@
             <input type="text" id="ipt_lote" placeholder="Ex: 4120Z001">
           </div>
 
-          <div class="campo">
-            <label><i class="fa-solid fa-capsules"></i> Data de validade:</label>
-            <input type="text" id="ipt_data_validade" placeholder="Ex: 2026-12-31">
-          </div>
-
-          <div class="campo">
-            <label><i class="fa-solid fa-capsules"></i> Data de fabricação:</label>
-            <input type="text" id="ipt_data_fabricacao" placeholder="Ex: 2026-06-05">
-          </div>
-
-
           <div>
             <label style="color: #fff; font-weight: 600;"> <i class="fa-solid fa-temperature-half"></i> Temperatura
               Permitida:</label>
@@ -93,11 +82,9 @@
     let lote = ipt_lote.value;
     let tempMin = ipt_temp_min.value;
     let tempMax = ipt_temp_max.value;
-    let dataValidade = ipt_data_validade.value;
-    let dataFabricacao = ipt_data_fabricacao.value;
     let idUsuario = sessionStorage.ID_USUARIO;
 
-    if (nomeVacina == '' || fabricante == '' || lote == '' || tempMin == '' || tempMax == '' || dataValidade == '' || dataFabricacao == '') {
+    if (nomeVacina == '' || fabricante == '' || lote == '' || tempMin == '' || tempMax == '') {
       alert("Preencha todos os campos para prosseguir!");
       return;
     }
@@ -113,8 +100,6 @@
         loteServer: lote,
         tempMinServer: tempMin,
         tempMaxServer: tempMax,
-        dataValidadeServer: dataValidade,
-        dataFabricacaoServer: dataFabricacao,
         userId: idUsuario
       })
     }).then(function (resposta) {
