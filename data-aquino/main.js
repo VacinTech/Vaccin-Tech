@@ -19,7 +19,7 @@ const serial = async (
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
-            host: '10.18.32.151',
+            host: '10.18.32.124',
             user: 'aluno',
             password: 'Sptech#2024',
             database: 'VaccinTech',
@@ -52,10 +52,11 @@ const serial = async (
         console.log(data);
         const valores = data.split(';');
        // const sensorDigital = parseInt(valores[0]);
-        const sensorAnalogico = parseFloat(valores[0]);
+        const sensor1 = parseFloat(valores[0]) - 16;
+        const sensor2 = parseFloat(valores[0]) - 14.5;
 
         // armazena os valores dos sensores nos arrays correspondentes
-        valoresSensorAnalogico.push(sensorAnalogico);
+        valoresSensorAnalogico.push(sensor1);
         //valoresSensorDigital.push(sensorDigital);
 
         // insere os dados no banco de dados (se habilitado)
@@ -64,9 +65,15 @@ const serial = async (
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
                 'INSERT INTO Monitoramento (temperatura, fkSensor) VALUES (?, ?)',
-                [sensorAnalogico, 1] // substitua 1 pelo ID real do sensor
+                [sensor1, 1] // substitua 1 pelo ID real do sensor
             );
-            console.log("valores inseridos no banco: ", sensorAnalogico);
+
+             await poolBancoDados.execute(
+                'INSERT INTO Monitoramento (temperatura, fkSensor) VALUES (?, ?)',
+                [sensor2, 2] // substitua 1 pelo ID real do sensor
+            );
+            console.log("valores inseridos no banco 1: ", sensor1);
+            console.log("valores inseridos no banco 2: ", sensor2);
 
         }
 
