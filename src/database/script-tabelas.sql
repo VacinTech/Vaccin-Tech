@@ -116,6 +116,7 @@ create view vwGeralRotas as
 	tr.placa,
     v.temperaturaMin,
     v.temperaturaMax,
+    v.nome,
 	(
     select m.temperatura 
 	from Monitoramento m 
@@ -134,13 +135,13 @@ create view vwGeralRotas as
 select * from vwGeralRotas
 	 where fkEmpresa = 1; -- aqui coloca ${idEmpresa};
      
-     
-create view vwTudoDashIndividual as
+    create view vwTudoDashIndividual as
 	select 
 		vi.idViagem, vi.origem, vi.destino,
 		tr.placa,
 		v.temperaturaMin,
 		v.temperaturaMax,
+        v.nome,
 		ss.minAtingido,
 		ss.maxAtingido,
 		(
