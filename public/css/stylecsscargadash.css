@@ -135,7 +135,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px;
 }
 .texto-veiculos{
     padding-top: 20px;
@@ -171,7 +171,7 @@
 .link-ver-mais{
     position: relative;
     left: 50px;
-    bottom: 12px;
+    bottom: 0px;
     color: rgb(69, 69, 69);
 }
 
