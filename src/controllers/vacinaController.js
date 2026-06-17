@@ -1,9 +1,9 @@
 var vacinaModel = require("../models/vacinaModel");
 
 function listar(req, res) {
-    let idUsuario = req.params.idUsuario;
+    let idEmpresa = req.params.idEmpresa;
     
-    vacinaModel.listar(idUsuario).then(function (resultado) {
+    vacinaModel.listar(idEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

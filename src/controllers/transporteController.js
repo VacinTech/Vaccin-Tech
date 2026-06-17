@@ -1,9 +1,9 @@
 var transporteModel = require("../models/transporteModel");
 
 function listar(req, res) {
-  var idUsuario = req.params.idUsuario;
+  var idEmpresa = req.params.idEmpresa;
 
-  transporteModel.listar(idUsuario).then((resultado) => {
+  transporteModel.listar(idEmpresa).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

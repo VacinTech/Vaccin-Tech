@@ -1,8 +1,8 @@
 var database = require("../database/config");
 
-function listar(idUsuario) {
+function listar(idEmpresa) {
 
-  var instrucaoSql = `SELECT * FROM Transporte where fkUsuario = ${idUsuario}`;
+  var instrucaoSql = `SELECT * FROM Transporte where fkEmpresa = ${idEmpresa}`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -18,7 +18,7 @@ function cadastrar(placa, modelo, tipoRefrigeramento, empresaId, userId) {
   `;
 
   return database.executar(instrucaoSql)
-    .then(function(resultado) {
+    .then(function (resultado) {
 
       var idTransporte = resultado.insertId;
 
